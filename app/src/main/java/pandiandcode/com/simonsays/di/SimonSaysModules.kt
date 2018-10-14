@@ -1,6 +1,7 @@
 package pandiandcode.com.simonsays.di
 
 import org.koin.dsl.module.module
+import pandiandcode.com.game.GamePresenter
 
 /**
  * Created by Rocio Ortega on 14/10/2018.
@@ -8,5 +9,5 @@ import org.koin.dsl.module.module
 fun simonSaysModules() = listOf(gameModule)
 
 val gameModule = module {
-    single {  }
+    single { GamePresenter() }
 }
