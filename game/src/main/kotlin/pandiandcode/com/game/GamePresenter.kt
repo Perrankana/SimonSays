@@ -1,5 +1,7 @@
 package pandiandcode.com.game
 
+import pandiandcode.com.game.model.Color
+
 /**
  * Created by Rocio Ortega on 14/10/2018.
  */
@@ -16,8 +18,12 @@ class GamePresenter(private val startNewGameUseCase: StartNewGameUseCase) {
     }
 
     fun onStartGame() {
-        startNewGameUseCase.execute()
+        startNewGameUseCase.execute().map {
+            view?.renderColor(it)
+        }
     }
 
-    interface View
+    interface View {
+        fun renderColor(color: Color)
+    }
 }
