@@ -11,7 +11,8 @@ fun simonSaysModules() = listOf(gameModule)
 val gameModule = module {
     single { GamePresenter(get()) }
     single { StartNewGameUseCase(get()) }
-    single { GameRepository(get()) }
+    single { GameRepository(get(), get()) }
+    single { GameDataSource() }
     single { ColorProvider(get()) }
     single { NumberProvider() }
 }

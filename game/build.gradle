@@ -1,10 +1,14 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
+kotlin { experimental { coroutines 'enable' } }
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.30.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22"
+    implementation "org.jetbrains.anko:anko:0.10.3"
+    implementation "org.jetbrains.anko:anko-commons:0.10.3"
     implementation "io.arrow-kt:arrow-core:0.6.1"
     implementation "io.arrow-kt:arrow-typeclasses:0.6.1"
     implementation "io.arrow-kt:arrow-instances:0.6.1"

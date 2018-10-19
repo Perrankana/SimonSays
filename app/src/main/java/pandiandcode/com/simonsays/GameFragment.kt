@@ -6,6 +6,7 @@ import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_game.*
 import org.koin.android.ext.android.inject
@@ -30,6 +31,14 @@ class GameFragment : Fragment(), GamePresenter.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initStartButton()
+        initButtons()
+    }
+
+    private fun initButtons() {
+        greenButton.setOnClickListener { presenter.onGreenPressed() }
+        redButton.setOnClickListener { presenter.onRedPressed() }
+        yellowButton.setOnClickListener { presenter.onYellowPressed() }
+        blueButton.setOnClickListener { presenter.onBluePressed() }
     }
 
     override fun onAttach(context: Context?) {
@@ -40,6 +49,10 @@ class GameFragment : Fragment(), GamePresenter.View {
     override fun onDetach() {
         super.onDetach()
         presenter.onDetach()
+    }
+
+    override fun hideStartButton() {
+        startGame.visibility = GONE
     }
 
     override fun renderColor(color: Color) {

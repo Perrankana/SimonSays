@@ -1,5 +1,8 @@
 package pandiandcode.com.game
 
+import arrow.data.Try
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.launch
 import pandiandcode.com.game.model.Color
 
 /**
@@ -18,12 +21,39 @@ class GamePresenter(private val startNewGameUseCase: StartNewGameUseCase) {
     }
 
     fun onStartGame() {
-        startNewGameUseCase.execute().map {
-            view?.renderColor(it)
+        launch(MAIN_CONTEXT) {
+            startGame().map {
+                view?.hideStartButton()
+                view?.renderColor(it)
+            }
         }
+    }
+
+    private suspend fun startGame(): Try<Color> {
+        return async(BG_CONTEXT) {
+            startNewGameUseCase.execute()
+        }.await()
+    }
+
+    fun onGreenPressed() {
+        
+    }
+
+    fun onRedPressed() {
+
+
+    }
+
+    fun onYellowPressed() {
+
+    }
+
+    fun onBluePressed() {
+
     }
 
     interface View {
         fun renderColor(color: Color)
+        fun hideStartButton()
     }
 }
