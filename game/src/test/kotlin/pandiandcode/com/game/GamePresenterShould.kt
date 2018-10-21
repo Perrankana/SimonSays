@@ -1,6 +1,8 @@
 package pandiandcode.com.game
 
+import arrow.data.Invalid
 import arrow.data.Try
+import arrow.data.Valid
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -18,7 +20,8 @@ class GamePresenterShould {
 
     private val view: GamePresenter.View = mock()
     private val startNewGameUseCase: StartNewGameUseCase = mock()
-    private val presenter: GamePresenter = GamePresenter(startNewGameUseCase)
+    private val verifyColorUseCase: VerifyColorUseCase = mock()
+    private val presenter: GamePresenter = GamePresenter(startNewGameUseCase, verifyColorUseCase)
 
     @Test
     fun `execute start new game when on start game`() {
@@ -37,5 +40,25 @@ class GamePresenterShould {
         presenter.onStartGame()
 
         verify(view).renderColor(eq(COLOR))
+    }
+
+    @Test
+    fun `render game over if green color is not correct`() {
+        whenever(verifyColorUseCase.execute(eq(Color.Green))).thenReturn(Invalid(Unit))
+        presenter.onAttach(view)
+
+        presenter.onGreenPressed()
+
+        verify(view).renderGameOver()
+    }
+
+    @Test
+    fun `render list of colors if green color is correct`() {
+        whenever(verifyColorUseCase.execute(eq(Color.Green))).thenReturn(Valid(listOf(Color.Green, Color.Red)))
+        presenter.onAttach(view)
+
+        presenter.onGreenPressed()
+
+        verify(view).renderColors(eq(listOf(Color.Green, Color.Red)))
     }
 }

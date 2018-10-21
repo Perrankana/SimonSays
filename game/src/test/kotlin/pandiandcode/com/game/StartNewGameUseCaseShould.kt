@@ -16,6 +16,6 @@ class StartNewGameUseCaseShould {
     fun `get new color when it is executed`() {
         useCase.execute()
 
-        verify(gameRepository).getColor()
+        verify(gameRepository).generateColor()
     }
 }

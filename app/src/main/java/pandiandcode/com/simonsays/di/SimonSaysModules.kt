@@ -9,8 +9,9 @@ import pandiandcode.com.game.*
 fun simonSaysModules() = listOf(gameModule)
 
 val gameModule = module {
-    single { GamePresenter(get()) }
+    single { GamePresenter(get(), get()) }
     single { StartNewGameUseCase(get()) }
+    single { VerifyColorUseCase(get()) }
     single { GameRepository(get(), get()) }
     single { GameDataSource() }
     single { ColorProvider(get()) }
