@@ -13,6 +13,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_game.*
 import org.koin.android.ext.android.inject
 import pandiandcode.com.game.GamePresenter
+import pandiandcode.com.game.MAIN_CONTEXT
 import pandiandcode.com.game.model.Color
 
 
@@ -24,6 +25,7 @@ class GameFragment : Fragment(), GamePresenter.View {
     private val presenter: GamePresenter by inject()
 
     companion object {
+        private const val DELAY = 300L
         fun newInstance(): GameFragment = GameFragment()
     }
 
@@ -59,8 +61,8 @@ class GameFragment : Fragment(), GamePresenter.View {
     }
 
     override fun renderColor(color: Color) {
-        renderColor(color, 300L)
-        highlightColor(R.color.dark, 600L)
+        renderColor(color, DELAY)
+        highlightColor(R.color.dark, DELAY * 2)
     }
 
     private fun renderColor(color: Color, delay: Long) {
@@ -79,8 +81,8 @@ class GameFragment : Fragment(), GamePresenter.View {
 
     override fun renderColors(colors: List<Color>) {
         colors.forEachIndexed { index, color ->
-            renderColor(color, (index+1) * 2 * 300L)
-            highlightColor(R.color.dark, (((index+1) * 2) + 1) * 300L)
+            renderColor(color, (index + 1) * 2 * DELAY)
+            highlightColor(R.color.dark, (((index + 1) * 2) + 1) * DELAY)
         }
 
     }
