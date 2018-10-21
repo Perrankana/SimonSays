@@ -3,6 +3,7 @@ package pandiandcode.com.game
 import arrow.data.Try
 import arrow.data.getOrElse
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -31,6 +32,7 @@ class VerifyColorUseCaseShould {
         whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Red))
         whenever(gameRepository.getAllColorsGame()).thenReturn(Try.pure(listOf(Color.Red)))
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
+        whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
 
         val result = verifyColorUseCase.execute(Color.Red)
 
@@ -42,10 +44,48 @@ class VerifyColorUseCaseShould {
         whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Red))
         whenever(gameRepository.getAllColorsGame()).thenReturn(Try.pure(listOf(Color.Red)))
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
+        whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
 
         val result = verifyColorUseCase.execute(Color.Red)
 
         assertTrue(result.isValid)
         assertEquals(listOf(Color.Red, Color.Green), result.getOrElse { emptyList() })
+    }
+
+    @Test
+    fun `return empty list when the color is correct and it is not the end of the sequence`() {
+        whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Red))
+        whenever(gameRepository.getAllColorsGame()).thenReturn(Try.pure(listOf(Color.Red, Color.Green)))
+        whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
+        whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
+
+        val result = verifyColorUseCase.execute(Color.Red)
+
+        assertTrue(result.isValid)
+        assertEquals(emptyList<Color>(), result.getOrElse { emptyList() })
+    }
+
+    @Test
+    fun `increment game sequence when is not end of sequence`() {
+        whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Red))
+        whenever(gameRepository.getAllColorsGame()).thenReturn(Try.pure(listOf(Color.Red, Color.Green)))
+        whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
+        whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
+
+        verifyColorUseCase.execute(Color.Red)
+
+        verify(gameRepository).incrementGameSequence()
+    }
+
+    @Test
+    fun `reset game sequence when it is end of sequence`() {
+        whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Red))
+        whenever(gameRepository.getAllColorsGame()).thenReturn(Try.pure(listOf(Color.Red)))
+        whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
+        whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
+
+        verifyColorUseCase.execute(Color.Red)
+
+        verify(gameRepository).resetGameSequence()
     }
 }

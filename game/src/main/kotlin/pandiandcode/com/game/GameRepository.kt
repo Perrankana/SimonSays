@@ -21,4 +21,14 @@ class GameRepository(private val colorProvider: ColorProvider, private val gameD
         gameDataSource.reset()
     }
 
+    fun getCurrentGameSequence(): Try<Int> = Try.invoke { gameDataSource.positionToValidate }
+
+    fun incrementGameSequence() {
+        gameDataSource.positionToValidate++
+    }
+
+    fun resetGameSequence() {
+        gameDataSource.positionToValidate = 0
+    }
+
 }

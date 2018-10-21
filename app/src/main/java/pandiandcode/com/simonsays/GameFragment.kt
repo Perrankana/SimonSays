@@ -79,8 +79,8 @@ class GameFragment : Fragment(), GamePresenter.View {
 
     override fun renderColors(colors: List<Color>) {
         colors.forEachIndexed { index, color ->
-            renderColor(color, index * 2 * 300L)
-            highlightColor(R.color.dark, ((index * 2) + 1) * 300L)
+            renderColor(color, (index+1) * 2 * 300L)
+            highlightColor(R.color.dark, (((index+1) * 2) + 1) * 300L)
         }
 
     }
