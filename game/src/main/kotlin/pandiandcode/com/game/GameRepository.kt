@@ -16,6 +16,7 @@ class GameRepository(private val colorProvider: ColorProvider, private val gameD
     }
 
     fun getAllColorsGame(): Try<List<Color>> = Try.invoke { gameDataSource.gameColors.toList() }
+
     fun resetGame() {
 
         gameDataSource.reset()

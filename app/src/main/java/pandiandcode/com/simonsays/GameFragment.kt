@@ -13,7 +13,6 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_game.*
 import org.koin.android.ext.android.inject
 import pandiandcode.com.game.GamePresenter
-import pandiandcode.com.game.MAIN_CONTEXT
 import pandiandcode.com.game.model.Color
 
 
@@ -62,15 +61,15 @@ class GameFragment : Fragment(), GamePresenter.View {
 
     override fun renderColor(color: Color) {
         renderColor(color, DELAY)
-        highlightColor(R.color.dark, DELAY * 2)
+        hideColorGame(2 * DELAY)
     }
 
     private fun renderColor(color: Color, delay: Long) {
         when (color) {
-            Color.Green -> highlightColor(R.color.green, delay)
-            Color.Red -> highlightColor(R.color.red, delay)
-            Color.Yellow -> highlightColor(R.color.yellow, delay)
-            Color.Blue -> highlightColor(R.color.blue, delay)
+            Color.Green -> highlightColor(R.drawable.green_button_background, delay)
+            Color.Red -> highlightColor(R.drawable.red_button_background, delay)
+            Color.Yellow -> highlightColor(R.drawable.yellow_button_background, delay)
+            Color.Blue -> highlightColor(R.drawable.blue_button_background, delay)
         }
     }
 
@@ -82,9 +81,12 @@ class GameFragment : Fragment(), GamePresenter.View {
     override fun renderColors(colors: List<Color>) {
         colors.forEachIndexed { index, color ->
             renderColor(color, (index + 1) * 2 * DELAY)
-            highlightColor(R.color.dark, (((index + 1) * 2) + 1) * DELAY)
+            if (index == colors.size - 1) {
+                hideColorGame((((index + 1) * 2) + 1) * DELAY)
+            } else {
+                highlightColor(R.color.dark, (((index + 1) * 2) + 1) * DELAY)
+            }
         }
-
     }
 
     private fun initStartButton() {
@@ -95,7 +97,14 @@ class GameFragment : Fragment(), GamePresenter.View {
 
     private fun highlightColor(colorRes: Int, delay: Long) {
         Handler().postDelayed({
-            root.setBackgroundResource(colorRes)
+            colorGame.visibility = VISIBLE
+            colorGame.setBackgroundResource(colorRes)
+        }, delay)
+    }
+
+    private fun hideColorGame(delay: Long) {
+        Handler().postDelayed({
+            colorGame.visibility = GONE
         }, delay)
     }
 }
