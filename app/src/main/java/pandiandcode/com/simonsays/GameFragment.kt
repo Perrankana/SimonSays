@@ -61,15 +61,15 @@ class GameFragment : Fragment(), GamePresenter.View {
 
     override fun renderColor(color: Color) {
         renderColor(color, DELAY)
-        hideColorGame(2 * DELAY)
+        resetColors(2 * DELAY)
     }
 
     private fun renderColor(color: Color, delay: Long) {
         when (color) {
-            Color.Green -> highlightColor(R.drawable.green_button_background, delay)
-            Color.Red -> highlightColor(R.drawable.red_button_background, delay)
-            Color.Yellow -> highlightColor(R.drawable.yellow_button_background, delay)
-            Color.Blue -> highlightColor(R.drawable.blue_button_background, delay)
+            Color.Green -> highlightGreen(delay)
+            Color.Red -> highlightRed(delay)
+            Color.Yellow -> highlightYellow(delay)
+            Color.Blue -> highlightBlue(delay)
         }
     }
 
@@ -81,11 +81,7 @@ class GameFragment : Fragment(), GamePresenter.View {
     override fun renderColors(colors: List<Color>) {
         colors.forEachIndexed { index, color ->
             renderColor(color, (index + 1) * 2 * DELAY)
-            if (index == colors.size - 1) {
-                hideColorGame((((index + 1) * 2) + 1) * DELAY)
-            } else {
-                highlightColor(R.color.dark, (((index + 1) * 2) + 1) * DELAY)
-            }
+            resetColors((((index + 1) * 2) + 1) * DELAY)
         }
     }
 
@@ -95,16 +91,36 @@ class GameFragment : Fragment(), GamePresenter.View {
         }
     }
 
-    private fun highlightColor(colorRes: Int, delay: Long) {
+    private fun highlightGreen(delay: Long) {
         Handler().postDelayed({
-            colorGame.visibility = VISIBLE
-            colorGame.setBackgroundResource(colorRes)
+            greenButton.setBackgroundResource(R.drawable.green_button_border_background)
         }, delay)
     }
 
-    private fun hideColorGame(delay: Long) {
+    private fun highlightBlue(delay: Long) {
         Handler().postDelayed({
-            colorGame.visibility = GONE
+            blueButton.setBackgroundResource(R.drawable.blue_button_border_background)
+        }, delay)
+    }
+
+    private fun highlightYellow(delay: Long) {
+        Handler().postDelayed({
+            yellowButton.setBackgroundResource(R.drawable.yellow_button_border_background)
+        }, delay)
+    }
+
+    private fun highlightRed(delay: Long) {
+        Handler().postDelayed({
+            redButton.setBackgroundResource(R.drawable.red_button_border_background)
+        }, delay)
+    }
+
+    private fun resetColors(delay: Long) {
+        Handler().postDelayed({
+            greenButton.setBackgroundResource(R.drawable.green_button_background)
+            blueButton.setBackgroundResource(R.drawable.blue_button_background)
+            yellowButton.setBackgroundResource(R.drawable.yellow_button_background)
+            redButton.setBackgroundResource(R.drawable.red_button_background)
         }, delay)
     }
 }
