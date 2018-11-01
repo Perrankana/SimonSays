@@ -14,7 +14,7 @@ import kotlin.coroutines.CoroutineContext
 class GamePresenter(
         private val startNewGameUseCase: StartNewGameUseCase, private val verifyColorUseCase: VerifyColorUseCase
 ) : CoroutineScope {
-    lateinit var job: Job
+    private lateinit var job: Job
 
     override val coroutineContext: CoroutineContext
         get() = MAIN_CONTEXT + job
@@ -48,45 +48,25 @@ class GamePresenter(
     }
 
     fun onGreenPressed() {
-        launch {
-            async(BG_CONTEXT) {
-                verifyColorUseCase.execute(Color.Green)
-            }.await().fold({
-                view?.renderGameOver()
-            }, {
-                view?.renderColors(it)
-            })
-        }
+        colorPressed(Color.Green)
     }
 
     fun onRedPressed() {
-        launch {
-            async(BG_CONTEXT) {
-                verifyColorUseCase.execute(Color.Red)
-            }.await().fold({
-                view?.renderGameOver()
-            }, {
-                view?.renderColors(it)
-            })
-        }
+        colorPressed(Color.Red)
     }
 
     fun onYellowPressed() {
-        launch {
-            async(BG_CONTEXT) {
-                verifyColorUseCase.execute(Color.Yellow)
-            }.await().fold({
-                view?.renderGameOver()
-            }, {
-                view?.renderColors(it)
-            })
-        }
+        colorPressed(Color.Yellow)
     }
 
     fun onBluePressed() {
+        colorPressed(Color.Blue)
+    }
+
+    private fun colorPressed(color: Color) {
         launch {
             async(BG_CONTEXT) {
-                verifyColorUseCase.execute(Color.Blue)
+                verifyColorUseCase.execute(color)
             }.await().fold({
                 view?.renderGameOver()
             }, {
