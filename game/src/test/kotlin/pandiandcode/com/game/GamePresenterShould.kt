@@ -26,7 +26,8 @@ class GamePresenterShould {
     @Test
     fun `execute start new game when on start game`() {
         whenever(startNewGameUseCase.execute()).thenReturn(Try.pure(COLOR))
-
+        presenter.onAttach(view)
+        
         presenter.onStartGame()
 
         verify(startNewGameUseCase).execute()

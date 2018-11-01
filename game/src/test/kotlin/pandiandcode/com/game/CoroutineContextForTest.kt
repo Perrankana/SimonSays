@@ -1,7 +1,7 @@
 package com.wallapop.kernel
 
-import kotlinx.coroutines.experimental.CoroutineDispatcher
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlin.coroutines.CoroutineContext
 
 object CoroutineContextForTest : CoroutineDispatcher() {
     override fun isDispatchNeeded(context: CoroutineContext): Boolean = false

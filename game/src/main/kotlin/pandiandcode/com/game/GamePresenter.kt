@@ -1,30 +1,39 @@
 package pandiandcode.com.game
 
 import arrow.data.Try
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import pandiandcode.com.game.model.Color
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by Rocio Ortega on 14/10/2018.
  */
 class GamePresenter(
         private val startNewGameUseCase: StartNewGameUseCase, private val verifyColorUseCase: VerifyColorUseCase
-) {
+) : CoroutineScope {
+    lateinit var job: Job
+
+    override val coroutineContext: CoroutineContext
+        get() = MAIN_CONTEXT + job
+
 
     var view: View? = null
 
     fun onAttach(view: View) {
         this.view = view
+        job = Job()
     }
 
     fun onDetach() {
         view = null
+        job.cancel()
     }
 
     fun onStartGame() {
-        GlobalScope.launch(MAIN_CONTEXT) {
+        launch {
             startGame().map {
                 view?.hideStartButton()
                 view?.renderColor(it)
@@ -33,13 +42,13 @@ class GamePresenter(
     }
 
     private suspend fun startGame(): Try<Color> {
-        return GlobalScope.async(BG_CONTEXT) {
+        return async(BG_CONTEXT) {
             startNewGameUseCase.execute()
         }.await()
     }
 
     fun onGreenPressed() {
-        GlobalScope.launch(MAIN_CONTEXT) {
+        launch {
             async(BG_CONTEXT) {
                 verifyColorUseCase.execute(Color.Green)
             }.await().fold({
@@ -51,7 +60,7 @@ class GamePresenter(
     }
 
     fun onRedPressed() {
-        GlobalScope.launch(MAIN_CONTEXT) {
+        launch {
             async(BG_CONTEXT) {
                 verifyColorUseCase.execute(Color.Red)
             }.await().fold({
@@ -63,7 +72,7 @@ class GamePresenter(
     }
 
     fun onYellowPressed() {
-        GlobalScope.launch(MAIN_CONTEXT) {
+        launch {
             async(BG_CONTEXT) {
                 verifyColorUseCase.execute(Color.Yellow)
             }.await().fold({
@@ -75,7 +84,7 @@ class GamePresenter(
     }
 
     fun onBluePressed() {
-        GlobalScope.launch(MAIN_CONTEXT) {
+        launch {
             async(BG_CONTEXT) {
                 verifyColorUseCase.execute(Color.Blue)
             }.await().fold({
