@@ -1,6 +1,7 @@
 package pandiandcode.com.game
 
 import arrow.data.Try
+import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
 import pandiandcode.com.game.model.Color
@@ -23,7 +24,7 @@ class GamePresenter(
     }
 
     fun onStartGame() {
-        launch(MAIN_CONTEXT) {
+        GlobalScope.launch(MAIN_CONTEXT) {
             startGame().map {
                 view?.hideStartButton()
                 view?.renderColor(it)
@@ -32,13 +33,13 @@ class GamePresenter(
     }
 
     private suspend fun startGame(): Try<Color> {
-        return async(BG_CONTEXT) {
+        return GlobalScope.async(BG_CONTEXT) {
             startNewGameUseCase.execute()
         }.await()
     }
 
     fun onGreenPressed() {
-        launch(MAIN_CONTEXT) {
+        GlobalScope.launch(MAIN_CONTEXT) {
             async(BG_CONTEXT) {
                 verifyColorUseCase.execute(Color.Green)
             }.await().fold({
@@ -50,7 +51,7 @@ class GamePresenter(
     }
 
     fun onRedPressed() {
-        launch(MAIN_CONTEXT) {
+        GlobalScope.launch(MAIN_CONTEXT) {
             async(BG_CONTEXT) {
                 verifyColorUseCase.execute(Color.Red)
             }.await().fold({
@@ -62,7 +63,7 @@ class GamePresenter(
     }
 
     fun onYellowPressed() {
-        launch(MAIN_CONTEXT) {
+        GlobalScope.launch(MAIN_CONTEXT) {
             async(BG_CONTEXT) {
                 verifyColorUseCase.execute(Color.Yellow)
             }.await().fold({
@@ -74,7 +75,7 @@ class GamePresenter(
     }
 
     fun onBluePressed() {
-        launch(MAIN_CONTEXT) {
+        GlobalScope.launch(MAIN_CONTEXT) {
             async(BG_CONTEXT) {
                 verifyColorUseCase.execute(Color.Blue)
             }.await().fold({

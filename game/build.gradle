@@ -6,7 +6,7 @@ kotlin { experimental { coroutines 'enable' } }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.26.0"
     implementation "org.jetbrains.anko:anko:0.10.3"
     implementation "org.jetbrains.anko:anko-commons:0.10.3"
     implementation "io.arrow-kt:arrow-core:0.6.1"
