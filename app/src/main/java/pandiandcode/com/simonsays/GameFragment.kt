@@ -15,7 +15,6 @@ import org.koin.android.ext.android.inject
 import pandiandcode.com.game.GamePresenter
 import pandiandcode.com.game.model.Color
 
-
 /**
  * Created by Rocio Ortega on 14/10/2018.
  */
@@ -56,12 +55,40 @@ class GameFragment : Fragment(), GamePresenter.View {
     }
 
     override fun hideStartButton() {
-        startGame.visibility = GONE
+        hideStartGameButton()
     }
 
     override fun renderColor(color: Color) {
+        highlightColor(color)
+    }
+
+    override fun renderGameOver() {
+        showStartGameButton()
+    }
+
+    override fun renderColors(colors: List<Color>) {
+        highlightColors(colors)
+    }
+
+    private fun hideStartGameButton() {
+        startGame.visibility = GONE
+    }
+
+    private fun highlightColor(color: Color) {
         renderColor(color, DELAY)
         resetColors(2 * DELAY)
+    }
+
+    private fun showStartGameButton() {
+        Toast.makeText(context, "GAME OVER", Toast.LENGTH_SHORT).show()
+        startGame.visibility = VISIBLE
+    }
+
+    private fun highlightColors(colors: List<Color>) {
+        colors.forEachIndexed { index, color ->
+            renderColor(color, (index + 1) * 2 * DELAY)
+            resetColors((((index + 1) * 2) + 1) * DELAY)
+        }
     }
 
     private fun renderColor(color: Color, delay: Long) {
@@ -70,18 +97,6 @@ class GameFragment : Fragment(), GamePresenter.View {
             Color.Red -> highlightRed(delay)
             Color.Yellow -> highlightYellow(delay)
             Color.Blue -> highlightBlue(delay)
-        }
-    }
-
-    override fun renderGameOver() {
-        Toast.makeText(context, "GAME OVER", Toast.LENGTH_SHORT).show()
-        startGame.visibility = VISIBLE
-    }
-
-    override fun renderColors(colors: List<Color>) {
-        colors.forEachIndexed { index, color ->
-            renderColor(color, (index + 1) * 2 * DELAY)
-            resetColors((((index + 1) * 2) + 1) * DELAY)
         }
     }
 
