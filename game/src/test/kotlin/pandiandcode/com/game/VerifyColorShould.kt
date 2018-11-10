@@ -9,20 +9,21 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import pandiandcode.com.game.model.Color
+import pandiandcode.com.game.usecases.VerifyColor
 
 /**
  * Created by Rocio Ortega on 21/10/2018.
  */
-class VerifyColorUseCaseShould {
+class VerifyColorShould {
 
     private val gameRepository: GameRepository = mock()
-    private val verifyColorUseCase: VerifyColorUseCase = VerifyColorUseCase(gameRepository)
+    private val verifyColor: VerifyColor = VerifyColor(gameRepository)
 
     @Test
     fun `return invalid when color is not correct`() {
         whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Green))
 
-        val result = verifyColorUseCase.execute(Color.Red)
+        val result = verifyColor(Color.Red)
 
         assertTrue(result.isInvalid)
     }
@@ -34,7 +35,7 @@ class VerifyColorUseCaseShould {
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
         whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
 
-        val result = verifyColorUseCase.execute(Color.Red)
+        val result = verifyColor(Color.Red)
 
         assertTrue(result.isValid)
     }
@@ -46,7 +47,7 @@ class VerifyColorUseCaseShould {
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
         whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
 
-        val result = verifyColorUseCase.execute(Color.Red)
+        val result = verifyColor(Color.Red)
 
         assertTrue(result.isValid)
         assertEquals(listOf(Color.Red, Color.Green), result.getOrElse { emptyList() })
@@ -59,7 +60,7 @@ class VerifyColorUseCaseShould {
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
         whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
 
-        val result = verifyColorUseCase.execute(Color.Red)
+        val result = verifyColor(Color.Red)
 
         assertTrue(result.isValid)
         assertEquals(emptyList<Color>(), result.getOrElse { emptyList() })
@@ -72,7 +73,7 @@ class VerifyColorUseCaseShould {
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
         whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
 
-        verifyColorUseCase.execute(Color.Red)
+        verifyColor(Color.Red)
 
         verify(gameRepository).incrementGameSequence()
     }
@@ -84,7 +85,7 @@ class VerifyColorUseCaseShould {
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
         whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
 
-        verifyColorUseCase.execute(Color.Red)
+        verifyColor(Color.Red)
 
         verify(gameRepository).resetGameSequence()
     }

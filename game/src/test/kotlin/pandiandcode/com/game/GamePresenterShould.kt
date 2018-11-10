@@ -9,6 +9,8 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Test
 import pandiandcode.com.game.model.Color
+import pandiandcode.com.game.usecases.StartNewGame
+import pandiandcode.com.game.usecases.VerifyColor
 
 /**
  * Created by Rocio Ortega on 14/10/2018.
@@ -19,23 +21,23 @@ class GamePresenterShould {
     }
 
     private val view: GamePresenter.View = mock()
-    private val startNewGameUseCase: StartNewGameUseCase = mock()
-    private val verifyColorUseCase: VerifyColorUseCase = mock()
-    private val presenter: GamePresenter = GamePresenter(startNewGameUseCase, verifyColorUseCase)
+    private val startNewGame: StartNewGame = mock()
+    private val verifyColor: VerifyColor = mock()
+    private val presenter: GamePresenter = GamePresenter(startNewGame, verifyColor)
 
     @Test
     fun `execute start new game when on start game`() {
-        whenever(startNewGameUseCase.execute()).thenReturn(Try.pure(COLOR))
+        whenever(startNewGame()).thenReturn(Try.pure(COLOR))
         presenter.onAttach(view)
 
         presenter.onStartGame()
 
-        verify(startNewGameUseCase).execute()
+        verify(startNewGame)()
     }
 
     @Test
     fun `render first color when on start game`() {
-        whenever(startNewGameUseCase.execute()).thenReturn(Try.pure(COLOR))
+        whenever(startNewGame()).thenReturn(Try.pure(COLOR))
         presenter.onAttach(view)
 
         presenter.onStartGame()
@@ -45,7 +47,7 @@ class GamePresenterShould {
 
     @Test
     fun `render game over if green color is not correct`() {
-        whenever(verifyColorUseCase.execute(eq(Color.Green))).thenReturn(Invalid(Unit))
+        whenever(verifyColor(eq(Color.Green))).thenReturn(Invalid(Unit))
         presenter.onAttach(view)
 
         presenter.onGreenPressed()
@@ -55,7 +57,7 @@ class GamePresenterShould {
 
     @Test
     fun `render list of colors if green color is correct`() {
-        whenever(verifyColorUseCase.execute(eq(Color.Green))).thenReturn(Valid(listOf(Color.Green, Color.Red)))
+        whenever(verifyColor(eq(Color.Green))).thenReturn(Valid(listOf(Color.Green, Color.Red)))
         presenter.onAttach(view)
 
         presenter.onGreenPressed()

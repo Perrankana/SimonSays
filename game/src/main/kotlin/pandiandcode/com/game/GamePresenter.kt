@@ -6,19 +6,20 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import pandiandcode.com.game.model.Color
+import pandiandcode.com.game.usecases.StartNewGame
+import pandiandcode.com.game.usecases.VerifyColor
 import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by Rocio Ortega on 14/10/2018.
  */
 class GamePresenter(
-        private val startNewGameUseCase: StartNewGameUseCase, private val verifyColorUseCase: VerifyColorUseCase
+    private val startNewGame: StartNewGame, private val verifyColor: VerifyColor
 ) : CoroutineScope {
     private lateinit var job: Job
 
     override val coroutineContext: CoroutineContext
         get() = MAIN_CONTEXT + job
-
 
     var view: View? = null
 
@@ -43,7 +44,7 @@ class GamePresenter(
 
     private suspend fun startGame(): Try<Color> {
         return async(BG_CONTEXT) {
-            startNewGameUseCase.execute()
+            startNewGame()
         }.await()
     }
 
@@ -66,7 +67,7 @@ class GamePresenter(
     private fun colorPressed(color: Color) {
         launch {
             async(BG_CONTEXT) {
-                verifyColorUseCase.execute(color)
+                verifyColor(color)
             }.await().fold({
                 view?.renderGameOver()
             }, {
