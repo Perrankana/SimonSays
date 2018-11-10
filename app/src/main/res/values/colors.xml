@@ -3,4 +3,18 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="dark">#2e2e2e</color>
+    <color name="orange">#ff8000</color>
+    <color name="green">#00FF00</color>
+    <color name="red">#FF0000</color>
+    <color name="yellow">#FFF000</color>
+    <color name="blue">#0000FF</color>
+    <color name="purple">#e100ff</color>
+    <color name="green_complementary">@color/red</color>
+    <color name="red_complementary">@color/green</color>
+    <color name="yellow_complementary">@color/purple</color>
+    <color name="blue_complementary">@color/orange</color>
+
 </resources>

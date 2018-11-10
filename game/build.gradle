@@ -1,0 +1,25 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+kotlin { experimental { coroutines 'enable' } }
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
+    implementation "org.jetbrains.anko:anko:0.10.3"
+    implementation "org.jetbrains.anko:anko-commons:0.10.3"
+    implementation 'org.koin:koin-android:1.0.1'
+    implementation "io.arrow-kt:arrow-core:0.6.1"
+    implementation "io.arrow-kt:arrow-typeclasses:0.6.1"
+    implementation "io.arrow-kt:arrow-instances:0.6.1"
+    implementation "io.arrow-kt:arrow-syntax:0.6.1"
+
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC3'
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
