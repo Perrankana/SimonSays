@@ -40,7 +40,7 @@ class GameRepositoryShould {
     fun `get position to validate from data source`() {
         whenever(dataSource.positionToValidate).thenReturn(POSITION)
 
-        gameRepository.getColor()
+        gameRepository.getColorToValidate()
 
         verify(dataSource).positionToValidate
     }
@@ -50,7 +50,7 @@ class GameRepositoryShould {
         whenever(dataSource.positionToValidate).thenReturn(POSITION)
         whenever(dataSource.getColorAt(eq(POSITION))).thenReturn(COLOR)
 
-        gameRepository.getColor()
+        gameRepository.getColorToValidate()
 
         verify(dataSource).getColorAt(eq(POSITION))
     }

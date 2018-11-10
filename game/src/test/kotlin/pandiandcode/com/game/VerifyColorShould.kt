@@ -21,7 +21,7 @@ class VerifyColorShould {
 
     @Test
     fun `return invalid when color is not correct`() {
-        whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Green))
+        whenever(gameRepository.getColorToValidate()).thenReturn(Try.pure(Color.Green))
 
         val result = verifyColor(Color.Red)
 
@@ -30,10 +30,10 @@ class VerifyColorShould {
 
     @Test
     fun `return valid when color is correct`() {
-        whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Red))
+        whenever(gameRepository.getColorToValidate()).thenReturn(Try.pure(Color.Red))
         whenever(gameRepository.getAllColorsGame()).thenReturn(Try.pure(listOf(Color.Red)))
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
-        whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
+        whenever(gameRepository.getCurrentGameSequencePosition()).thenReturn(Try.pure(0))
 
         val result = verifyColor(Color.Red)
 
@@ -42,10 +42,10 @@ class VerifyColorShould {
 
     @Test
     fun `return list of colors when color is correct`() {
-        whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Red))
+        whenever(gameRepository.getColorToValidate()).thenReturn(Try.pure(Color.Red))
         whenever(gameRepository.getAllColorsGame()).thenReturn(Try.pure(listOf(Color.Red)))
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
-        whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
+        whenever(gameRepository.getCurrentGameSequencePosition()).thenReturn(Try.pure(0))
 
         val result = verifyColor(Color.Red)
 
@@ -55,10 +55,10 @@ class VerifyColorShould {
 
     @Test
     fun `return empty list when the color is correct and it is not the end of the sequence`() {
-        whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Red))
+        whenever(gameRepository.getColorToValidate()).thenReturn(Try.pure(Color.Red))
         whenever(gameRepository.getAllColorsGame()).thenReturn(Try.pure(listOf(Color.Red, Color.Green)))
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
-        whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
+        whenever(gameRepository.getCurrentGameSequencePosition()).thenReturn(Try.pure(0))
 
         val result = verifyColor(Color.Red)
 
@@ -68,25 +68,25 @@ class VerifyColorShould {
 
     @Test
     fun `increment game sequence when is not end of sequence`() {
-        whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Red))
+        whenever(gameRepository.getColorToValidate()).thenReturn(Try.pure(Color.Red))
         whenever(gameRepository.getAllColorsGame()).thenReturn(Try.pure(listOf(Color.Red, Color.Green)))
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
-        whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
+        whenever(gameRepository.getCurrentGameSequencePosition()).thenReturn(Try.pure(0))
 
         verifyColor(Color.Red)
 
-        verify(gameRepository).incrementGameSequence()
+        verify(gameRepository).incrementGameSequencePosition()
     }
 
     @Test
     fun `reset game sequence when it is end of sequence`() {
-        whenever(gameRepository.getColor()).thenReturn(Try.pure(Color.Red))
+        whenever(gameRepository.getColorToValidate()).thenReturn(Try.pure(Color.Red))
         whenever(gameRepository.getAllColorsGame()).thenReturn(Try.pure(listOf(Color.Red)))
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
-        whenever(gameRepository.getCurrentGameSequence()).thenReturn(Try.pure(0))
+        whenever(gameRepository.getCurrentGameSequencePosition()).thenReturn(Try.pure(0))
 
         verifyColor(Color.Red)
 
-        verify(gameRepository).resetGameSequence()
+        verify(gameRepository).resetGameSequencePosition()
     }
 }

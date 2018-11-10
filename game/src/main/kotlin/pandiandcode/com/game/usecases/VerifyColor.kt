@@ -13,24 +13,24 @@ import pandiandcode.com.game.model.Color
 
 class VerifyColor(private val gameRepository: GameRepository) {
     operator fun invoke(color: Color): Validated<Unit, List<Color>> =
-            gameRepository.getColor().filter { it == color }
+            gameRepository.getColorToValidate().filter { it == color }
                     .fold({
                         gameRepository.resetGame()
                         Invalid(Unit)
-                    }, { 
+                    }, {
                         isEndOfSequence().filter { it }
-                                .flatMap { combineGameColorAndNewColor() }
+                                .flatMap { addNewColorToGameColorSequence() }
                                 .fold({
-                                    gameRepository.incrementGameSequence()
+                                    gameRepository.incrementGameSequencePosition()
                                     Valid(emptyList())
                                 }, {colors ->
-                                    gameRepository.resetGameSequence()
+                                    gameRepository.resetGameSequencePosition()
                                     Valid(colors)
                                 })
                     })
 
 
-    private fun combineGameColorAndNewColor() =
+    private fun addNewColorToGameColorSequence() =
             Try.applicative().tupled(
                     gameRepository.getAllColorsGame(),
                     gameRepository.generateColor()
@@ -41,7 +41,7 @@ class VerifyColor(private val gameRepository: GameRepository) {
     private fun isEndOfSequence() =
             Try.applicative().tupled(
                     gameRepository.getAllColorsGame(),
-                    gameRepository.getCurrentGameSequence()
+                    gameRepository.getCurrentGameSequencePosition()
             ).map {
                 (it.a.size - 1) == it.b
             }.ev()
