@@ -10,6 +10,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
     implementation "org.jetbrains.anko:anko:0.10.3"
     implementation "org.jetbrains.anko:anko-commons:0.10.3"
+    implementation 'org.koin:koin-android:1.0.1'
     implementation "io.arrow-kt:arrow-core:0.6.1"
     implementation "io.arrow-kt:arrow-typeclasses:0.6.1"
     implementation "io.arrow-kt:arrow-instances:0.6.1"
