@@ -1,4 +1,4 @@
-package pandiandcode.com.game
+package pandiandcode.com.game.coroutines
 
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext

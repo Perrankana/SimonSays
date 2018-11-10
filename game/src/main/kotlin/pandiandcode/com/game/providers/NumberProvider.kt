@@ -1,4 +1,4 @@
-package pandiandcode.com.game
+package pandiandcode.com.game.providers
 
 import java.util.*
 

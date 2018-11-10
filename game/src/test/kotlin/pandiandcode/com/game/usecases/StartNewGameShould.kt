@@ -1,9 +1,9 @@
-package pandiandcode.com.game
+package pandiandcode.com.game.usecases
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
-import pandiandcode.com.game.usecases.StartNewGame
+import pandiandcode.com.game.GameRepository
 
 /**
  * Created by Rocio Ortega on 19/10/2018.

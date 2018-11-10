@@ -1,4 +1,4 @@
-package pandiandcode.com.game
+package pandiandcode.com.game.coroutines
 
 import com.wallapop.kernel.CoroutineContextForTest
 import kotlin.coroutines.CoroutineContext

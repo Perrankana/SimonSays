@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Test
 import pandiandcode.com.game.model.Color
+import pandiandcode.com.game.providers.ColorProvider
 
 /**
  * Created by Rocio Ortega on 19/10/2018.

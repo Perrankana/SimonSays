@@ -1,4 +1,4 @@
-package pandiandcode.com.game
+package pandiandcode.com.game.usecases
 
 import arrow.data.Try
 import arrow.data.getOrElse
@@ -8,8 +8,8 @@ import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import pandiandcode.com.game.GameRepository
 import pandiandcode.com.game.model.Color
-import pandiandcode.com.game.usecases.VerifyColor
 
 /**
  * Created by Rocio Ortega on 21/10/2018.

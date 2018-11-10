@@ -1,10 +1,12 @@
-package pandiandcode.com.game
+package pandiandcode.com.game.providers
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import pandiandcode.com.game.model.Color
+import pandiandcode.com.game.providers.ColorProvider
+import pandiandcode.com.game.providers.NumberProvider
 
 /**
  * Created by Rocio Ortega on 19/10/2018.

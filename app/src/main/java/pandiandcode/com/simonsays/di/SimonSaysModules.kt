@@ -2,6 +2,8 @@ package pandiandcode.com.simonsays.di
 
 import org.koin.dsl.module.module
 import pandiandcode.com.game.*
+import pandiandcode.com.game.providers.ColorProvider
+import pandiandcode.com.game.providers.NumberProvider
 import pandiandcode.com.game.usecases.StartNewGame
 import pandiandcode.com.game.usecases.VerifyColor
 
