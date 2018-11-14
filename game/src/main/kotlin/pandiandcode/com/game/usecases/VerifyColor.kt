@@ -4,45 +4,38 @@ import arrow.data.Invalid
 import arrow.data.Try
 import arrow.data.Valid
 import arrow.data.Validated
-import arrow.data.applicative
-import arrow.data.ev
-import arrow.syntax.applicative.tupled
-import arrow.syntax.functor.map
 import pandiandcode.com.game.GameRepository
 import pandiandcode.com.game.model.Color
 
 class VerifyColor(private val gameRepository: GameRepository) {
     operator fun invoke(color: Color): Validated<Unit, List<Color>> =
-            gameRepository.getColorToValidate().filter { it == color }
-                    .fold({
+        gameRepository.getColorToValidate().filter { it == color }
+            .fold({
+                gameRepository.resetGame()
+                Invalid(Unit)
+            }, {
+                if (isEndOfSequence()) {
+                    addNewColorToGameColorSequence().fold({
                         gameRepository.resetGame()
                         Invalid(Unit)
-                    }, {
-                        isEndOfSequence().filter { it }
-                                .flatMap { addNewColorToGameColorSequence() }
-                                .fold({
-                                    gameRepository.incrementGameSequencePosition()
-                                    Valid(emptyList())
-                                }, {colors ->
-                                    gameRepository.resetGameSequencePosition()
-                                    Valid(colors)
-                                })
+                    }, { colors ->
+                        gameRepository.resetGameSequencePosition()
+                        Valid(colors)
                     })
+                } else {
+                    gameRepository.incrementGameSequencePosition()
+                    Valid(emptyList())
+                }
+            })
 
+    private fun addNewColorToGameColorSequence(): Try<List<Color>> =
+        gameRepository.generateColor().map {
+            gameRepository.getAllColorsGame().toMutableList().apply { add(it) }
+        }
 
-    private fun addNewColorToGameColorSequence() =
-            Try.applicative().tupled(
-                    gameRepository.getAllColorsGame(),
-                    gameRepository.generateColor()
-            ).map {
-                it.a.toMutableList().apply { add(it.b) }.toList()
-            }.ev()
-
-    private fun isEndOfSequence() =
-            Try.applicative().tupled(
-                    gameRepository.getAllColorsGame(),
-                    gameRepository.getCurrentGameSequencePosition()
-            ).map {
-                (it.a.size - 1) == it.b
-            }.ev()
+    private fun isEndOfSequence(): Boolean {
+        val sequenceSize = gameRepository.getAllColorsGame().size
+        val currentGameSequencePosition = gameRepository.getCurrentGameSequencePosition()
+        return sequenceSize - 1 == currentGameSequencePosition
+    }
 }
