@@ -42,12 +42,12 @@ class VerifyColorShould {
 
     @Test
     fun `return list of colors when color is correct`() {
-        whenever(gameRepository.getColorToValidate()).thenReturn(Try.pure(Color.Red))
-        whenever(gameRepository.getAllColorsGame()).thenReturn(listOf(Color.Red))
+        whenever(gameRepository.getColorToValidate()).thenReturn(Try.pure(Color.Green))
+        whenever(gameRepository.getAllColorsGame()).thenReturn(listOf(Color.Red, Color.Green))
         whenever(gameRepository.generateColor()).thenReturn(Try.pure(Color.Green))
-        whenever(gameRepository.getCurrentGameSequencePosition()).thenReturn(0)
+        whenever(gameRepository.getCurrentGameSequencePosition()).thenReturn(1)
 
-        val result = verifyColor(Color.Red)
+        val result = verifyColor(Color.Green)
 
         assertTrue(result.isValid)
         assertEquals(listOf(Color.Red, Color.Green), result.getOrElse { emptyList() })
