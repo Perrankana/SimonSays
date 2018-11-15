@@ -30,7 +30,7 @@ class VerifyColor(private val gameRepository: GameRepository) {
 
     private fun addNewColorToGameColorSequence(): Try<List<Color>> =
         gameRepository.generateColor().map {
-            gameRepository.getAllColorsGame().toMutableList().apply { add(it) }
+            gameRepository.getAllColorsGame()
         }
 
     private fun isEndOfSequence(): Boolean {
