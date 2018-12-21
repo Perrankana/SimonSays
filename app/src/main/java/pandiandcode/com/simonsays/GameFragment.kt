@@ -38,10 +38,10 @@ class GameFragment : Fragment(), GamePresenter.View {
     }
 
     private fun initButtons() {
-        greenButton.setOnClickListener { presenter.onGreenPressed() }
-        redButton.setOnClickListener { presenter.onRedPressed() }
-        yellowButton.setOnClickListener { presenter.onYellowPressed() }
-        blueButton.setOnClickListener { presenter.onBluePressed() }
+        game.setOnGreenButtonListener { presenter.onGreenPressed() }
+        game.setOnRedButtonListener { presenter.onRedPressed() }
+        game.setOnYellowButtonListener { presenter.onYellowPressed() }
+        game.setOnBlueButtonListener { presenter.onBluePressed() }
     }
 
     override fun onAttach(context: Context?) {
@@ -107,35 +107,22 @@ class GameFragment : Fragment(), GamePresenter.View {
     }
 
     private fun highlightGreen(delay: Long) {
-        Handler().postDelayed({
-            greenButton.setBackgroundResource(R.drawable.green_button_border_background)
-        }, delay)
+        game.highlightGreen(delay)
     }
 
     private fun highlightBlue(delay: Long) {
-        Handler().postDelayed({
-            blueButton.setBackgroundResource(R.drawable.blue_button_border_background)
-        }, delay)
+        game.highlightBlue(delay)
     }
 
     private fun highlightYellow(delay: Long) {
-        Handler().postDelayed({
-            yellowButton.setBackgroundResource(R.drawable.yellow_button_border_background)
-        }, delay)
+        game.highlightYellow(delay)
     }
 
     private fun highlightRed(delay: Long) {
-        Handler().postDelayed({
-            redButton.setBackgroundResource(R.drawable.red_button_border_background)
-        }, delay)
+        game.highlightRed(delay)
     }
 
     private fun resetColors(delay: Long) {
-        Handler().postDelayed({
-            greenButton.setBackgroundResource(R.drawable.green_button_background)
-            blueButton.setBackgroundResource(R.drawable.blue_button_background)
-            yellowButton.setBackgroundResource(R.drawable.yellow_button_background)
-            redButton.setBackgroundResource(R.drawable.red_button_background)
-        }, delay)
+        game.resetColors(delay)
     }
 }
