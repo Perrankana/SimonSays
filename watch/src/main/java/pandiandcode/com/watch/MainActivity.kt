@@ -2,9 +2,10 @@ package pandiandcode.com.watch
 
 import android.R
 import android.os.Bundle
-import android.support.wearable.activity.WearableActivity
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : WearableActivity() {
+
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -12,7 +13,7 @@ class MainActivity : WearableActivity() {
     }
 
     private fun initializeFragment() {
-        fragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction()
                 .add(R.id.content, GameFragment.newInstance())
                 .commit()
     }

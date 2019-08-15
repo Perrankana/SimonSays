@@ -2,10 +2,9 @@ package pandiandcode.com.uielements
 
 import android.content.Context
 import android.os.Handler
-import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
-import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.layout_game.view.*
 
 /**
