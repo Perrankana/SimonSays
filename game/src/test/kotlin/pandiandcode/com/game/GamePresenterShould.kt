@@ -12,9 +12,6 @@ import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.usecases.StartNewGame
 import pandiandcode.com.game.usecases.VerifyColor
 
-/**
- * Created by Rocio Ortega on 14/10/2018.
- */
 class GamePresenterShould {
     private companion object {
         val COLOR = Color.Red

@@ -8,9 +8,6 @@ import org.junit.Test
 import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.providers.ColorProvider
 
-/**
- * Created by Rocio Ortega on 19/10/2018.
- */
 class GameRepositoryShould {
     companion object {
         private val COLOR = Color.Red

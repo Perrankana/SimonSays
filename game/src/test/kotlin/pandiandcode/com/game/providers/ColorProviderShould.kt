@@ -8,9 +8,6 @@ import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.providers.ColorProvider
 import pandiandcode.com.game.providers.NumberProvider
 
-/**
- * Created by Rocio Ortega on 19/10/2018.
- */
 class ColorProviderShould {
 
     private val numberProvider: NumberProvider = mock()

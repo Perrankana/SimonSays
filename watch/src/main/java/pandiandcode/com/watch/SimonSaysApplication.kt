@@ -6,9 +6,6 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import pandiandcode.com.watch.di.simonSaysModules
 
-/**
- * Created by Rocio Ortega on 21/12/2018.
- */
 class SimonSaysApplication : Application() {
     override fun onCreate() {
         super.onCreate()

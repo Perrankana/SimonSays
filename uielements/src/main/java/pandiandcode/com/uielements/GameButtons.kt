@@ -1,15 +1,11 @@
 package pandiandcode.com.uielements
 
 import android.content.Context
-import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.layout_game.view.*
 
-/**
- * Created by Rocio Ortega on 21/12/2018.
- */
 class GameButtons @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
@@ -35,36 +31,42 @@ class GameButtons @JvmOverloads constructor(
         blueButton.setOnClickListener { block.invoke(Unit) }
     }
 
-    fun highlightGreen(delay: Long) {
-        Handler().postDelayed({
-            greenButton.setBackgroundResource(R.drawable.green_button_border_background)
-        }, delay)
+    fun resetColors() {
+        deactivateGreenColor()
+        deactivateBlueColor()
+        deactivateYellowColor()
+        reactivateRedColor()
     }
 
-    fun highlightBlue(delay: Long) {
-        Handler().postDelayed({
-            blueButton.setBackgroundResource(R.drawable.blue_button_border_background)
-        }, delay)
+    fun highlightGreenColor() {
+        greenButton.setBackgroundResource(R.drawable.green_button_border_background)
     }
 
-    fun highlightYellow(delay: Long) {
-        Handler().postDelayed({
-            yellowButton.setBackgroundResource(R.drawable.yellow_button_border_background)
-        }, delay)
+    fun highlightBlueColor() {
+        blueButton.setBackgroundResource(R.drawable.blue_button_border_background)
     }
 
-    fun highlightRed(delay: Long) {
-        Handler().postDelayed({
-            redButton.setBackgroundResource(R.drawable.red_button_border_background)
-        }, delay)
+    fun highlightYellowColor() {
+        yellowButton.setBackgroundResource(R.drawable.yellow_button_border_background)
     }
 
-    fun resetColors(delay: Long) {
-        Handler().postDelayed({
-            greenButton.setBackgroundResource(R.drawable.green_button_background)
-            blueButton.setBackgroundResource(R.drawable.blue_button_background)
-            yellowButton.setBackgroundResource(R.drawable.yellow_button_background)
-            redButton.setBackgroundResource(R.drawable.red_button_background)
-        }, delay)
+    fun highlightRedColor() {
+        redButton.setBackgroundResource(R.drawable.red_button_border_background)
+    }
+
+    private fun reactivateRedColor() {
+        redButton.setBackgroundResource(R.drawable.red_button_background)
+    }
+
+    private fun deactivateYellowColor() {
+        yellowButton.setBackgroundResource(R.drawable.yellow_button_background)
+    }
+
+    private fun deactivateBlueColor() {
+        blueButton.setBackgroundResource(R.drawable.blue_button_background)
+    }
+
+    private fun deactivateGreenColor() {
+        greenButton.setBackgroundResource(R.drawable.green_button_background)
     }
 }

@@ -11,9 +11,6 @@ import org.junit.Test
 import pandiandcode.com.game.GameRepository
 import pandiandcode.com.game.model.Color
 
-/**
- * Created by Rocio Ortega on 21/10/2018.
- */
 class VerifyColorShould {
 
     private val gameRepository: GameRepository = mock()

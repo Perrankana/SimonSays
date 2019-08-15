@@ -2,6 +2,7 @@ package pandiandcode.com.watch
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -14,9 +15,6 @@ import org.koin.android.ext.android.inject
 import pandiandcode.com.game.GamePresenter
 import pandiandcode.com.game.model.Color
 
-/**
- * Created by Rocio Ortega on 14/10/2018.
- */
 class GameFragment : Fragment(), GamePresenter.View {
 
     private val presenter: GamePresenter by inject()
@@ -106,22 +104,32 @@ class GameFragment : Fragment(), GamePresenter.View {
     }
 
     private fun highlightGreen(delay: Long) {
-        game.highlightGreen(delay)
+        Handler().postDelayed({
+            game.highlightGreenColor()
+        }, delay)
     }
 
     private fun highlightBlue(delay: Long) {
-        game.highlightBlue(delay)
+        Handler().postDelayed({
+            game.highlightBlueColor()
+        }, delay)
     }
 
     private fun highlightYellow(delay: Long) {
-        game.highlightYellow(delay)
+        Handler().postDelayed({
+            game.highlightYellowColor()
+        }, delay)
     }
 
     private fun highlightRed(delay: Long) {
-        game.highlightRed(delay)
+        Handler().postDelayed({
+            game.highlightRedColor()
+        }, delay)
     }
 
     private fun resetColors(delay: Long) {
-        game.resetColors(delay)
+        Handler().postDelayed({
+            game.resetColors()
+        }, delay)
     }
 }
