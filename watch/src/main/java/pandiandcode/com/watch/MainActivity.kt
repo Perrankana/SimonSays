@@ -1,8 +1,9 @@
-package pandiandcode.com.simonsays
+package pandiandcode.com.watch
 
 import android.R
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,13 +1,13 @@
-package pandiandcode.com.simonsays
+package pandiandcode.com.watch
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import pandiandcode.com.simonsays.di.simonSaysModules
+import pandiandcode.com.watch.di.simonSaysModules
 
 /**
- * Created by Rocio Ortega on 14/10/2018.
+ * Created by Rocio Ortega on 21/12/2018.
  */
 class SimonSaysApplication : Application() {
     override fun onCreate() {
