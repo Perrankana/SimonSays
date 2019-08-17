@@ -4,7 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import pandiandcode.com.watch.di.simonSaysModules
+import pandiandcode.com.common.di.simonSaysModules
 
 class SimonSaysApplication : Application() {
     override fun onCreate() {

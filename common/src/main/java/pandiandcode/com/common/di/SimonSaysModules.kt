@@ -1,4 +1,4 @@
-package pandiandcode.com.simonsays.di
+package pandiandcode.com.common.di
 
 import pandiandcode.com.game.di.gameModule
 
