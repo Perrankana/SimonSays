@@ -2,7 +2,6 @@ package pandiandcode.com.simonsays
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -11,8 +10,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_game.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import pandiandcode.com.game.GamePresenter
+import pandiandcode.com.game.coroutines.MAIN_CONTEXT
 import pandiandcode.com.game.model.Color
 
 class GameFragment : Fragment(), GamePresenter.View {
@@ -56,7 +59,9 @@ class GameFragment : Fragment(), GamePresenter.View {
     }
 
     override fun renderColor(color: Color) {
-        highlightColor(color)
+        CoroutineScope(MAIN_CONTEXT).launch {
+            highlightColor(color)
+        }
     }
 
     override fun renderGameOver() {
@@ -64,16 +69,18 @@ class GameFragment : Fragment(), GamePresenter.View {
     }
 
     override fun renderColors(colors: List<Color>) {
-        highlightColors(colors)
+        CoroutineScope(MAIN_CONTEXT).launch {
+            highlightColors(colors)
+        }
     }
 
     private fun hideStartGameButton() {
         startGame.visibility = GONE
     }
 
-    private fun highlightColor(color: Color) {
-        renderColor(color, DELAY)
-        resetColors(2 * DELAY)
+    private suspend fun highlightColor(color: Color) {
+        highlightOneColor(color)
+        resetColors()
     }
 
     private fun showStartGameButton() {
@@ -81,19 +88,19 @@ class GameFragment : Fragment(), GamePresenter.View {
         startGame.visibility = VISIBLE
     }
 
-    private fun highlightColors(colors: List<Color>) {
-        colors.forEachIndexed { index, color ->
-            renderColor(color, (index + 1) * 2 * DELAY)
-            resetColors((((index + 1) * 2) + 1) * DELAY)
+    private suspend fun highlightColors(colors: List<Color>) {
+        colors.forEach { color ->
+            highlightOneColor(color)
+            resetColors()
         }
     }
 
-    private fun renderColor(color: Color, delay: Long) {
+    private suspend fun highlightOneColor(color: Color) {
         when (color) {
-            Color.Green -> highlightGreen(delay)
-            Color.Red -> highlightRed(delay)
-            Color.Yellow -> highlightYellow(delay)
-            Color.Blue -> highlightBlue(delay)
+            Color.Green -> highlightGreen()
+            Color.Red -> highlightRed()
+            Color.Yellow -> highlightYellow()
+            Color.Blue -> highlightBlue()
         }
     }
 
@@ -103,33 +110,28 @@ class GameFragment : Fragment(), GamePresenter.View {
         }
     }
 
-    private fun highlightGreen(delay: Long) {
-        Handler().postDelayed({
-            game.highlightGreenColor()
-        }, delay)
+    private suspend fun highlightGreen() {
+        delay(DELAY)
+        game.highlightGreenColor()
     }
 
-    private fun highlightBlue(delay: Long) {
-        Handler().postDelayed({
-            game.highlightBlueColor()
-        }, delay)
+    private suspend fun highlightBlue() {
+        delay(DELAY)
+        game.highlightBlueColor()
     }
 
-    private fun highlightYellow(delay: Long) {
-        Handler().postDelayed({
-            game.highlightYellowColor()
-        }, delay)
+    private suspend fun highlightYellow() {
+        delay(DELAY)
+        game.highlightYellowColor()
     }
 
-    private fun highlightRed(delay: Long) {
-        Handler().postDelayed({
-            game.highlightRedColor()
-        }, delay)
+    private suspend fun highlightRed() {
+        delay(DELAY)
+        game.highlightRedColor()
     }
 
-    private fun resetColors(delay: Long) {
-        Handler().postDelayed({
-            game.resetColors()
-        }, delay)
+    private suspend fun resetColors() {
+        delay(DELAY)
+        game.resetColors()
     }
 }
