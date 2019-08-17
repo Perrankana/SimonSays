@@ -8,3 +8,4 @@ import kotlin.coroutines.CoroutineContext
 var MAIN_CONTEXT: CoroutineContext = TestCoroutineDispatcher()
 @ExperimentalCoroutinesApi
 var BG_CONTEXT: CoroutineContext = TestCoroutineDispatcher()
+var DELAY = 0L

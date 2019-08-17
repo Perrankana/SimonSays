@@ -1,19 +1,20 @@
 package pandiandcode.com.game
 
-import arrow.data.Try
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import pandiandcode.com.game.coroutines.BG_CONTEXT
+import pandiandcode.com.game.coroutines.DELAY
 import pandiandcode.com.game.coroutines.MAIN_CONTEXT
 import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.usecases.StartNewGame
 import pandiandcode.com.game.usecases.VerifyColor
 import kotlin.coroutines.CoroutineContext
 
+@UseExperimental(FlowPreview::class)
 class GamePresenter(
-    private val startNewGame: StartNewGame, private val verifyColor: VerifyColor
+        private val startNewGame: StartNewGame, private val verifyColor: VerifyColor
 ) : CoroutineScope {
     private lateinit var job: Job
 
@@ -34,16 +35,25 @@ class GamePresenter(
 
     fun onStartGame() {
         launch {
-            startGame().map {
+            withContext(BG_CONTEXT) {
+                startNewGame()
+            }.fold({
+                Unit
+            }, { firstColor ->
                 view?.hideStartButton()
-                view?.renderColor(it)
-            }
+                listOf(firstColor).asFlowWithDelay(DELAY)
+                        .collect {
+                            renderColor(it)
+                        }
+            })
         }
     }
 
-    private suspend fun startGame(): Try<Color> {
-        return withContext(BG_CONTEXT) {
-            startNewGame()
+    private fun renderColor(it: Color?) {
+        it?.let { color ->
+            view?.renderColor(color)
+        } ?: run {
+            view?.resetColors()
         }
     }
 
@@ -63,22 +73,39 @@ class GamePresenter(
         colorPressed(Color.Blue)
     }
 
-    private fun colorPressed(color: Color) {
+
+    private fun colorPressed(colorPressed: Color) {
         launch {
             withContext(BG_CONTEXT) {
-                verifyColor(color)
+                verifyColor(colorPressed)
             }.fold({
                 view?.renderGameOver()
-            }, {
-                view?.renderColors(it)
+            }, { colors ->
+                colors.asFlowWithDelay(DELAY)
+                        .collect {
+                            it?.let { color ->
+                                view?.renderColor(color)
+                            } ?: run {
+                                view?.resetColors()
+                            }
+                        }
             })
         }
     }
 
+    private fun <T> Iterable<T>.asFlowWithDelay(delayTime: Long): Flow<T?> = flow {
+        forEach { value ->
+            delay(delayTime)
+            emit(value)
+            delay(delayTime)
+            emit(null)
+        }
+    }
+
     interface View {
-        fun renderColor(color: Color)
         fun hideStartButton()
         fun renderGameOver()
-        fun renderColors(colors: List<Color>)
+        fun renderColor(color: Color)
+        fun resetColors()
     }
 }

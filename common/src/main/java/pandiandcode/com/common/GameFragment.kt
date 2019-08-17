@@ -58,29 +58,20 @@ class GameFragment : Fragment(), GamePresenter.View {
         hideStartGameButton()
     }
 
-    override fun renderColor(color: Color) {
-        CoroutineScope(MAIN_CONTEXT).launch {
-            highlightColor(color)
-        }
-    }
-
     override fun renderGameOver() {
         showStartGameButton()
     }
 
-    override fun renderColors(colors: List<Color>) {
-        CoroutineScope(MAIN_CONTEXT).launch {
-            highlightColors(colors)
-        }
+    override fun renderColor(color: Color) {
+        highlightOneColor(color)
+    }
+
+    override fun resetColors() {
+        game.resetColors()
     }
 
     private fun hideStartGameButton() {
         startGame.visibility = GONE
-    }
-
-    private suspend fun highlightColor(color: Color) {
-        highlightOneColor(color)
-        resetColors()
     }
 
     private fun showStartGameButton() {
@@ -88,14 +79,7 @@ class GameFragment : Fragment(), GamePresenter.View {
         startGame.visibility = VISIBLE
     }
 
-    private suspend fun highlightColors(colors: List<Color>) {
-        colors.forEach { color ->
-            highlightOneColor(color)
-            resetColors()
-        }
-    }
-
-    private suspend fun highlightOneColor(color: Color) {
+    private fun highlightOneColor(color: Color) {
         when (color) {
             Color.Green -> highlightGreen()
             Color.Red -> highlightRed()
@@ -110,28 +94,19 @@ class GameFragment : Fragment(), GamePresenter.View {
         }
     }
 
-    private suspend fun highlightGreen() {
-        delay(DELAY)
+    private fun highlightGreen() {
         game.highlightGreenColor()
     }
 
-    private suspend fun highlightBlue() {
-        delay(DELAY)
+    private fun highlightBlue() {
         game.highlightBlueColor()
     }
 
-    private suspend fun highlightYellow() {
-        delay(DELAY)
+    private fun highlightYellow() {
         game.highlightYellowColor()
     }
 
-    private suspend fun highlightRed() {
-        delay(DELAY)
+    private fun highlightRed() {
         game.highlightRedColor()
-    }
-
-    private suspend fun resetColors() {
-        delay(DELAY)
-        game.resetColors()
     }
 }
