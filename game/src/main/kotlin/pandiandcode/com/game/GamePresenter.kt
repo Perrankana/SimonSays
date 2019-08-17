@@ -3,8 +3,8 @@ package pandiandcode.com.game
 import arrow.data.Try
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pandiandcode.com.game.coroutines.BG_CONTEXT
 import pandiandcode.com.game.coroutines.MAIN_CONTEXT
 import pandiandcode.com.game.model.Color
@@ -42,9 +42,9 @@ class GamePresenter(
     }
 
     private suspend fun startGame(): Try<Color> {
-        return async(BG_CONTEXT) {
+        return withContext(BG_CONTEXT) {
             startNewGame()
-        }.await()
+        }
     }
 
     fun onGreenPressed() {
@@ -65,9 +65,9 @@ class GamePresenter(
 
     private fun colorPressed(color: Color) {
         launch {
-            async(BG_CONTEXT) {
+            withContext(BG_CONTEXT) {
                 verifyColor(color)
-            }.await().fold({
+            }.fold({
                 view?.renderGameOver()
             }, {
                 view?.renderColors(it)
