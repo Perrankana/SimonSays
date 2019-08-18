@@ -41,19 +41,11 @@ class GamePresenter(
                 Unit
             }, { firstColor ->
                 view?.hideStartButton()
-                listOf(firstColor).asFlowWithDelay(DELAY)
-                        .collect {
-                            renderColor(it)
+                listOf(firstColor, Color.None).asFlowWithDelay(DELAY)
+                        .collect { color ->
+                            renderColor(color)
                         }
             })
-        }
-    }
-
-    private fun renderColor(it: Color?) {
-        it?.let { color ->
-            view?.renderColor(color)
-        } ?: run {
-            view?.resetColors()
         }
     }
 
@@ -81,24 +73,26 @@ class GamePresenter(
             }.fold({
                 view?.renderGameOver()
             }, { colors ->
-                colors.asFlowWithDelay(DELAY)
-                        .collect {
-                            it?.let { color ->
-                                view?.renderColor(color)
-                            } ?: run {
-                                view?.resetColors()
-                            }
+                colors.map { listOf(it, Color.None) }.flatten()
+                        .asFlowWithDelay(DELAY)
+                        .collect { color ->
+                            renderColor(color)
                         }
             })
         }
     }
 
-    private fun <T> Iterable<T>.asFlowWithDelay(delayTime: Long): Flow<T?> = flow {
+    private fun renderColor(color: Color) {
+        when (color) {
+            is Color.None -> view?.resetColors()
+            else -> view?.renderColor(color)
+        }
+    }
+
+    private fun <T> Iterable<T>.asFlowWithDelay(delayTime: Long): Flow<T> = flow {
         forEach { value ->
             delay(delayTime)
             emit(value)
-            delay(delayTime)
-            emit(null)
         }
     }
 

@@ -5,4 +5,5 @@ sealed class Color {
     object Blue: Color()
     object Yellow: Color()
     object Green: Color()
+    object None: Color()
 }
