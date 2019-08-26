@@ -64,7 +64,7 @@ class GameButtons @JvmOverloads constructor(
     }
 
     private fun highLightButton(button: AppCompatImageView, animationEnd: (() -> Unit)? = null) {
-        (button.background as? AnimatedVectorDrawable)?.apply {
+        (button.drawable as? AnimatedVectorDrawable)?.apply {
             AnimatedVectorDrawableCompat.registerAnimationCallback(this, object : Animatable2Compat.AnimationCallback() {
                 override fun onAnimationEnd(drawable: Drawable?) {
                     super.onAnimationEnd(drawable)
