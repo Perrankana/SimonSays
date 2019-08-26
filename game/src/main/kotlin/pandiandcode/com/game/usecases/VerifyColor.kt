@@ -1,44 +1,41 @@
 package pandiandcode.com.game.usecases
 
-import arrow.data.*
-import arrow.syntax.applicative.tupled
-import arrow.syntax.functor.map
-
+import arrow.data.Invalid
+import arrow.data.Try
+import arrow.data.Valid
+import arrow.data.Validated
 import pandiandcode.com.game.GameRepository
 import pandiandcode.com.game.model.Color
 
 class VerifyColor(private val gameRepository: GameRepository) {
     operator fun invoke(color: Color): Validated<Unit, List<Color>> =
-            gameRepository.getColorToValidate().filter { it == color }
+        gameRepository.getColorToValidate()
+            .filter { color == it }
+            .fold({
+                gameRepository.resetGame()
+                Invalid(Unit)
+            }, { colors ->
+                isEndOfSequence()
+                    .filter { it }
+                    .flatMap { addNewColorToSequence() }
                     .fold({
-                        gameRepository.resetGame()
-                        Invalid(Unit)
+                        gameRepository.incrementGameSequencePosition()
+                        Valid(emptyList())
                     }, {
-                        isEndOfSequence().filter { it }
-                                .flatMap { addNewColorToGameColorSequence() }
-                                .fold({
-                                    gameRepository.incrementGameSequencePosition()
-                                    Valid(emptyList())
-                                }, {colors ->
-                                    gameRepository.resetGameSequencePosition()
-                                    Valid(colors)
-                                })
+                        gameRepository.resetGameSequencePosition()
+                        Valid(it)
                     })
+            })
 
+    private fun addNewColorToSequence(): Try<List<Color>> =
+        gameRepository.generateColor().map {
+            gameRepository.getAllColorsGame()
+        }
 
-    private fun addNewColorToGameColorSequence() =
-            Try.applicative().tupled(
-                    gameRepository.getAllColorsGame(),
-                    gameRepository.generateColor()
-            ).map {
-                it.a.toMutableList().apply { add(it.b) }.toList()
-            }.ev()
-
-    private fun isEndOfSequence() =
-            Try.applicative().tupled(
-                    gameRepository.getAllColorsGame(),
-                    gameRepository.getCurrentGameSequencePosition()
-            ).map {
-                (it.a.size - 1) == it.b
-            }.ev()
+    private fun isEndOfSequence(): Try<Boolean> =
+        Try.invoke {
+            val sequenceSize = gameRepository.getAllColorsGame().size
+            val sequencePosition = gameRepository.getCurrentGameSequencePosition()
+            sequenceSize - 1 == sequencePosition
+        }
 }

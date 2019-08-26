@@ -43,6 +43,16 @@ class GamePresenterShould {
     }
 
     @Test
+    fun `hide start button when on start game`() {
+        whenever(startNewGame()).thenReturn(Try.pure(Color.Red))
+        presenter.onAttach(view)
+
+        presenter.onStartGame()
+
+        verify(view).hideStartButton()
+    }
+
+    @Test
     fun `render game over if green color is not correct`() {
         whenever(verifyColor(eq(Color.Green))).thenReturn(Invalid(Unit))
         presenter.onAttach(view)

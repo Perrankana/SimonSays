@@ -16,13 +16,13 @@ class GameRepository(private val colorProvider: ColorProvider, private val gameD
         gameDataSource.getColorAt(position)
     }
 
-    fun getAllColorsGame(): Try<List<Color>> = Try.invoke { gameDataSource.gameColors.toList() }
+    fun getAllColorsGame(): List<Color> = gameDataSource.gameColors.toList()
 
     fun resetGame() {
         gameDataSource.reset()
     }
 
-    fun getCurrentGameSequencePosition(): Try<Int> = Try.invoke { gameDataSource.positionToValidate }
+    fun getCurrentGameSequencePosition(): Int = gameDataSource.positionToValidate
 
     fun incrementGameSequencePosition() {
         gameDataSource.positionToValidate++
@@ -31,5 +31,4 @@ class GameRepository(private val colorProvider: ColorProvider, private val gameD
     fun resetGameSequencePosition() {
         gameDataSource.positionToValidate = 0
     }
-
 }
