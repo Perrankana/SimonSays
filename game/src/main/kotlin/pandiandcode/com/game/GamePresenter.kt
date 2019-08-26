@@ -1,9 +1,14 @@
 package pandiandcode.com.game
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pandiandcode.com.game.coroutines.BG_CONTEXT
 import pandiandcode.com.game.coroutines.DELAY
 import pandiandcode.com.game.coroutines.MAIN_CONTEXT
@@ -14,7 +19,7 @@ import kotlin.coroutines.CoroutineContext
 
 @UseExperimental(FlowPreview::class)
 class GamePresenter(
-        private val startNewGame: StartNewGame, private val verifyColor: VerifyColor
+    private val startNewGame: StartNewGame, private val verifyColor: VerifyColor
 ) : CoroutineScope {
     private lateinit var job: Job
 
@@ -41,10 +46,10 @@ class GamePresenter(
                 Unit
             }, { firstColor ->
                 view?.hideStartButton()
-                listOf(firstColor, Color.None).asFlowWithDelay(DELAY)
-                        .collect { color ->
-                            renderColor(color)
-                        }
+                listOf(firstColor).asFlowWithDelay(DELAY)
+                    .collect { color ->
+                        renderColor(color)
+                    }
             })
         }
     }
@@ -65,7 +70,6 @@ class GamePresenter(
         colorPressed(Color.Blue)
     }
 
-
     private fun colorPressed(colorPressed: Color) {
         launch {
             withContext(BG_CONTEXT) {
@@ -73,20 +77,16 @@ class GamePresenter(
             }.fold({
                 view?.renderGameOver()
             }, { colors ->
-                colors.map { listOf(it, Color.None) }.flatten()
-                        .asFlowWithDelay(DELAY)
-                        .collect { color ->
-                            renderColor(color)
-                        }
+                colors.asFlowWithDelay(DELAY)
+                    .collect { color ->
+                        renderColor(color)
+                    }
             })
         }
     }
 
     private fun renderColor(color: Color) {
-        when (color) {
-            is Color.None -> view?.resetColors()
-            else -> view?.renderColor(color)
-        }
+        view?.renderColor(color)
     }
 
     private fun <T> Iterable<T>.asFlowWithDelay(delayTime: Long): Flow<T> = flow {
@@ -100,6 +100,5 @@ class GamePresenter(
         fun hideStartButton()
         fun renderGameOver()
         fun renderColor(color: Color)
-        fun resetColors()
     }
 }

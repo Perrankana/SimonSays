@@ -3,7 +3,11 @@ package pandiandcode.com.game
 import arrow.data.Invalid
 import arrow.data.Try
 import arrow.data.Valid
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.inOrder
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Test
 import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.usecases.StartNewGame
@@ -38,7 +42,6 @@ class GamePresenterShould {
 
         inOrder(view) {
             verify(view).renderColor(eq(COLOR))
-            verify(view).resetColors()
         }
     }
 
@@ -71,9 +74,7 @@ class GamePresenterShould {
 
         inOrder(view) {
             verify(view).renderColor(eq(Color.Green))
-            verify(view).resetColors()
             verify(view).renderColor(eq(Color.Red))
-            verify(view).resetColors()
         }
     }
 }

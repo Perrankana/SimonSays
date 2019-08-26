@@ -1,13 +1,21 @@
 package pandiandcode.com.uielements
 
 import android.content.Context
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.layout_game.view.*
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
+import kotlinx.android.synthetic.main.layout_game.view.blueButton
+import kotlinx.android.synthetic.main.layout_game.view.greenButton
+import kotlinx.android.synthetic.main.layout_game.view.redButton
+import kotlinx.android.synthetic.main.layout_game.view.yellowButton
 
 class GameButtons @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     override fun onFinishInflate() {
@@ -16,57 +24,55 @@ class GameButtons @JvmOverloads constructor(
     }
 
     fun setOnGreenButtonListener(block: (Unit) -> Unit) {
-        greenButton.setOnClickListener { block.invoke(Unit) }
+        onClickButton(greenButton, block)
     }
 
     fun setOnRedButtonListener(block: (Unit) -> Unit) {
-        redButton.setOnClickListener { block.invoke(Unit) }
+        onClickButton(redButton, block)
     }
 
     fun setOnYellowButtonListener(block: (Unit) -> Unit) {
-        yellowButton.setOnClickListener { block.invoke(Unit) }
+        onClickButton(yellowButton, block)
     }
 
     fun setOnBlueButtonListener(block: (Unit) -> Unit) {
-        blueButton.setOnClickListener { block.invoke(Unit) }
-    }
-
-    fun resetColors() {
-        deactivateGreenColor()
-        deactivateBlueColor()
-        deactivateYellowColor()
-        reactivateRedColor()
+        onClickButton(blueButton, block)
     }
 
     fun highlightGreenColor() {
-        greenButton.setBackgroundResource(R.drawable.green_button_border_background)
+        highLightButton(greenButton)
     }
 
     fun highlightBlueColor() {
-        blueButton.setBackgroundResource(R.drawable.blue_button_border_background)
+        highLightButton(blueButton)
     }
 
     fun highlightYellowColor() {
-        yellowButton.setBackgroundResource(R.drawable.yellow_button_border_background)
+        highLightButton(yellowButton)
     }
 
     fun highlightRedColor() {
-        redButton.setBackgroundResource(R.drawable.red_button_border_background)
+        highLightButton(redButton)
     }
 
-    private fun reactivateRedColor() {
-        redButton.setBackgroundResource(R.drawable.red_button_background)
+    private fun onClickButton(button: AppCompatImageView, block: (Unit) -> Unit) {
+        button.setOnClickListener {
+            highLightButton(button) {
+                block.invoke(Unit)
+            }
+        }
     }
 
-    private fun deactivateYellowColor() {
-        yellowButton.setBackgroundResource(R.drawable.yellow_button_background)
-    }
-
-    private fun deactivateBlueColor() {
-        blueButton.setBackgroundResource(R.drawable.blue_button_background)
-    }
-
-    private fun deactivateGreenColor() {
-        greenButton.setBackgroundResource(R.drawable.green_button_background)
+    private fun highLightButton(button: AppCompatImageView, animationEnd: (() -> Unit)? = null) {
+        (button.background as? AnimatedVectorDrawable)?.apply {
+            AnimatedVectorDrawableCompat.registerAnimationCallback(this, object : Animatable2Compat.AnimationCallback() {
+                override fun onAnimationEnd(drawable: Drawable?) {
+                    super.onAnimationEnd(drawable)
+                    animationEnd?.invoke()
+                    AnimatedVectorDrawableCompat.clearAnimationCallbacks(drawable)
+                }
+            })
+            start()
+        }
     }
 }

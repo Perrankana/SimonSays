@@ -9,13 +9,10 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_game.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.fragment_game.game
+import kotlinx.android.synthetic.main.fragment_game.startGame
 import org.koin.android.ext.android.inject
 import pandiandcode.com.game.GamePresenter
-import pandiandcode.com.game.coroutines.MAIN_CONTEXT
 import pandiandcode.com.game.model.Color
 
 class GameFragment : Fragment(), GamePresenter.View {
@@ -23,7 +20,6 @@ class GameFragment : Fragment(), GamePresenter.View {
     private val presenter: GamePresenter by inject()
 
     companion object {
-        private const val DELAY = 300L
         fun newInstance(): GameFragment = GameFragment()
     }
 
@@ -64,10 +60,6 @@ class GameFragment : Fragment(), GamePresenter.View {
 
     override fun renderColor(color: Color) {
         highlightOneColor(color)
-    }
-
-    override fun resetColors() {
-        game.resetColors()
     }
 
     private fun hideStartGameButton() {
