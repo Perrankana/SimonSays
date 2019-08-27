@@ -2,7 +2,8 @@ package pandiandcode.com.game
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -11,31 +12,23 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pandiandcode.com.game.coroutines.BG_CONTEXT
 import pandiandcode.com.game.coroutines.DELAY
-import pandiandcode.com.game.coroutines.MAIN_CONTEXT
 import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.usecases.StartNewGame
 import pandiandcode.com.game.usecases.VerifyColor
-import kotlin.coroutines.CoroutineContext
 
 @UseExperimental(FlowPreview::class)
 class GamePresenter(
     private val startNewGame: StartNewGame, private val verifyColor: VerifyColor
-) : CoroutineScope {
-    private lateinit var job: Job
-
-    override val coroutineContext: CoroutineContext
-        get() = MAIN_CONTEXT + job
-
-    var view: View? = null
+) : CoroutineScope by MainScope() {
+    private var view: View? = null
 
     fun onAttach(view: View) {
         this.view = view
-        job = Job()
     }
 
     fun onDetach() {
         view = null
-        job.cancel()
+        cancel()
     }
 
     fun onStartGame() {
