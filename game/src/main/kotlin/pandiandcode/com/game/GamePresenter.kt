@@ -16,7 +16,8 @@ import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.usecases.StartNewGame
 import pandiandcode.com.game.usecases.VerifyColor
 
-@UseExperimental(FlowPreview::class)
+
+@FlowPreview
 class GamePresenter(
     private val startNewGame: StartNewGame, private val verifyColor: VerifyColor
 ) : CoroutineScope by MainScope() {
