@@ -1,6 +1,6 @@
 package pandiandcode.com.game.usecases
 
-import arrow.data.Try
+import arrow.core.Try
 import pandiandcode.com.game.GameRepository
 import pandiandcode.com.game.model.Color
 

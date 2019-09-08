@@ -1,6 +1,6 @@
 package pandiandcode.com.game
 
-import arrow.data.Try
+import arrow.core.Try
 import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.providers.ColorProvider
 

@@ -1,9 +1,10 @@
 package pandiandcode.com.game.usecases
 
+import arrow.core.Try
 import arrow.data.Invalid
-import arrow.data.Try
 import arrow.data.Valid
 import arrow.data.Validated
+
 import pandiandcode.com.game.GameRepository
 import pandiandcode.com.game.model.Color
 
@@ -17,7 +18,9 @@ class VerifyColor(private val gameRepository: GameRepository) {
             }, { colors ->
                 isEndOfSequence()
                     .filter { it }
-                    .flatMap { addNewColorToSequence() }
+                    .flatMap {
+                        addNewColorToSequence()
+                    }
                     .fold({
                         gameRepository.incrementGameSequencePosition()
                         Valid(emptyList())
