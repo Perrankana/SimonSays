@@ -1,7 +1,7 @@
 package pandiandcode.com.game
 
+import arrow.core.Try
 import arrow.data.Invalid
-import arrow.data.Try
 import arrow.data.Valid
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.inOrder
@@ -40,7 +40,7 @@ class GamePresenterShould {
 
     @Test
     fun `execute start new game when on start game`() {
-        whenever(startNewGame()).thenReturn(Try.pure(COLOR))
+        whenever(startNewGame()).thenReturn(Try.just(COLOR))
 
         presenter.onStartGame()
 
@@ -49,7 +49,7 @@ class GamePresenterShould {
 
     @Test
     fun `render first color when on start game`() {
-        whenever(startNewGame()).thenReturn(Try.pure(COLOR))
+        whenever(startNewGame()).thenReturn(Try.just(COLOR))
 
         presenter.onStartGame()
 
@@ -60,7 +60,7 @@ class GamePresenterShould {
 
     @Test
     fun `hide start button when on start game`() {
-        whenever(startNewGame()).thenReturn(Try.pure(Color.Red))
+        whenever(startNewGame()).thenReturn(Try.just(Color.Red))
 
         presenter.onStartGame()
 
