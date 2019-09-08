@@ -8,13 +8,13 @@ import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.providers.ColorProvider
 import pandiandcode.com.game.providers.NumberProvider
 
-class ColorProviderShould {
+class ColorProviderTest {
 
     private val numberProvider: NumberProvider = mock()
     private val colorProvider: ColorProvider = ColorProvider(numberProvider)
 
     @Test
-    fun `return color green if random number is 1`() {
+    fun `should return color green if random number is 1`() {
         whenever(numberProvider.getRandomNumber(from = 1, to = 4)).thenReturn(1)
 
         val result = colorProvider.generateColor()
@@ -23,7 +23,7 @@ class ColorProviderShould {
     }
 
     @Test
-    fun `return color red if random number is 2`() {
+    fun `should return color red if random number is 2`() {
         whenever(numberProvider.getRandomNumber(from = 1, to = 4)).thenReturn(2)
 
         val result = colorProvider.generateColor()
@@ -32,7 +32,7 @@ class ColorProviderShould {
     }
 
     @Test
-    fun `return color yellow if random number is 3`() {
+    fun `should return color yellow if random number is 3`() {
         whenever(numberProvider.getRandomNumber(from = 1, to = 4)).thenReturn(3)
 
         val result = colorProvider.generateColor()
@@ -41,7 +41,7 @@ class ColorProviderShould {
     }
 
     @Test
-    fun `return color blue if random number is 4`() {
+    fun `should return color blue if random number is 4`() {
         whenever(numberProvider.getRandomNumber(from = 1, to = 4)).thenReturn(4)
 
         val result = colorProvider.generateColor()

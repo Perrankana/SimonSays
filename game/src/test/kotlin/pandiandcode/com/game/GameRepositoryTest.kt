@@ -8,10 +8,10 @@ import org.junit.Test
 import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.providers.ColorProvider
 
-class GameRepositoryShould {
+class GameRepositoryTest {
     companion object {
         private val COLOR = Color.Red
-        private val POSITION = 0
+        private const val POSITION = 0
     }
 
     private val colorProvider: ColorProvider = mock()
@@ -19,14 +19,14 @@ class GameRepositoryShould {
     private val gameRepository: GameRepository = GameRepository(colorProvider, dataSource)
 
     @Test
-    fun `get color from Color Provider when a color is requested`() {
+    fun `should get color from Color Provider when a color is requested`() {
         gameRepository.generateColor()
 
         verify(colorProvider).generateColor()
     }
 
     @Test
-    fun `save color in data source when color is requested`() {
+    fun `should save color in data source when color is requested`() {
         whenever(colorProvider.generateColor()).thenReturn(COLOR)
 
         gameRepository.generateColor()
@@ -35,7 +35,7 @@ class GameRepositoryShould {
     }
 
     @Test
-    fun `get position to validate from data source`() {
+    fun `should get position to validate from data source`() {
         whenever(dataSource.positionToValidate).thenReturn(POSITION)
 
         gameRepository.getColorToValidate()
@@ -44,7 +44,7 @@ class GameRepositoryShould {
     }
 
     @Test
-    fun `get color at position from data source`() {
+    fun `should get color at position from data source`() {
         whenever(dataSource.positionToValidate).thenReturn(POSITION)
         whenever(dataSource.getColorAt(eq(POSITION))).thenReturn(COLOR)
 

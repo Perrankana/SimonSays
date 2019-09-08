@@ -5,13 +5,13 @@ import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
 import pandiandcode.com.game.GameRepository
 
-class StartNewGameShould {
+class StartNewGameTest {
 
     private val gameRepository: GameRepository = mock()
     private val useCase: StartNewGame = StartNewGame(gameRepository)
 
     @Test
-    fun `get new color when it is executed`() {
+    fun `should get new color when it is executed`() {
         useCase()
 
         verify(gameRepository).generateColor()
