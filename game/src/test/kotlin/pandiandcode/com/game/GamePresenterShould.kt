@@ -4,6 +4,7 @@ import arrow.core.Try
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
 import org.junit.Before
@@ -12,7 +13,7 @@ import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.usecases.StartNewGame
 import pandiandcode.com.game.usecases.VerifyColor
 
-@ExperimentalCoroutinesApi
+@FlowPreview
 class GamePresenterShould {
 
     private lateinit var view: GamePresenter.View
@@ -20,6 +21,7 @@ class GamePresenterShould {
     private lateinit var verifyColor: VerifyColor
     private lateinit var presenter: GamePresenter
 
+    @ExperimentalCoroutinesApi
     @Before
     fun setup() {
         val mainTestDispatcher = TestCoroutineDispatcher()
