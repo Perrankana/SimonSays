@@ -1,13 +1,7 @@
 package pandiandcode.com.game
 
 import arrow.core.Try
-import arrow.data.Invalid
-import arrow.data.Valid
-import com.nhaarman.mockitokotlin2.eq
-import com.nhaarman.mockitokotlin2.inOrder
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -67,25 +61,12 @@ class GamePresenterShould {
         verify(view).hideStartButton()
     }
 
-    @Test
     fun `render game over if green color is not correct`() {
-        whenever(verifyColor(eq(Color.Green))).thenReturn(Invalid(Unit))
 
-        presenter.onGreenPressed()
-
-        verify(view).renderGameOver()
     }
 
-    @Test
     fun `render list of colors if green color is correct`() {
-        whenever(verifyColor(eq(Color.Green))).thenReturn(Valid(listOf(Color.Green, Color.Red)))
 
-        presenter.onGreenPressed()
-
-        inOrder(view) {
-            verify(view).renderColor(eq(Color.Green))
-            verify(view).renderColor(eq(Color.Red))
-        }
     }
 
     private companion object {

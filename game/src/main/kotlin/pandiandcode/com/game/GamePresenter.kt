@@ -64,18 +64,7 @@ class GamePresenter(
     }
 
     private fun colorPressed(colorPressed: Color) {
-        launch {
-            withContext(BG_CONTEXT) {
-                verifyColor(colorPressed)
-            }.fold({
-                view?.renderGameOver()
-            }, { colors ->
-                colors.asFlowWithDelay(DELAY)
-                    .collect { color ->
-                        renderColor(color)
-                    }
-            })
-        }
+
     }
 
     private fun renderColor(color: Color) {
