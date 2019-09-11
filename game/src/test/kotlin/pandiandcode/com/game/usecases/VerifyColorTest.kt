@@ -1,7 +1,7 @@
 package pandiandcode.com.game.usecases
 
 import com.nhaarman.mockitokotlin2.mock
-import pandiandcode.com.game.GameRepository
+import pandiandcode.com.game.repositories.GameRepository
 
 class VerifyColorTest {
 

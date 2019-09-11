@@ -2,9 +2,9 @@ package pandiandcode.com.game.di
 
 
 import org.koin.dsl.module
-import pandiandcode.com.game.GameDataSource
+import pandiandcode.com.game.datasources.GameDataSource
 import pandiandcode.com.game.GamePresenter
-import pandiandcode.com.game.GameRepository
+import pandiandcode.com.game.repositories.GameRepository
 import pandiandcode.com.game.providers.ColorProvider
 import pandiandcode.com.game.providers.NumberProvider
 import pandiandcode.com.game.usecases.StartNewGame

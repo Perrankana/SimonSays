@@ -5,8 +5,10 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Test
+import pandiandcode.com.game.datasources.GameDataSource
 import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.providers.ColorProvider
+import pandiandcode.com.game.repositories.GameRepository
 
 class GameRepositoryTest {
     companion object {

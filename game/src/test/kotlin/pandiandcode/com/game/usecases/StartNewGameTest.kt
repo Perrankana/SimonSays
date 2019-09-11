@@ -3,7 +3,7 @@ package pandiandcode.com.game.usecases
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
-import pandiandcode.com.game.GameRepository
+import pandiandcode.com.game.repositories.GameRepository
 
 class StartNewGameTest {
 

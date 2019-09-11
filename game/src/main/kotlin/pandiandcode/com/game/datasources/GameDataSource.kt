@@ -1,4 +1,4 @@
-package pandiandcode.com.game
+package pandiandcode.com.game.datasources
 
 import pandiandcode.com.game.model.Color
 
