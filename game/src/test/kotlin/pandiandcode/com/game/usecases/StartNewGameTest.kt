@@ -11,6 +11,13 @@ class StartNewGameTest {
     private val useCase: StartNewGame = StartNewGame(gameRepository)
 
     @Test
+    fun `should reset any started game when it is executed`(){
+        useCase()
+
+        verify(gameRepository).resetGame()
+    }
+
+    @Test
     fun `should get new color when it is executed`() {
         useCase()
 

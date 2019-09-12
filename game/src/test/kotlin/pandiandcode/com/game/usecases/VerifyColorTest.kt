@@ -20,10 +20,6 @@ class VerifyColorTest {
 
     }
 
-    fun `should reset game when color is not correct`() {
-
-    }
-
     fun `should return empty list when the color is correct and it is not the end of the sequence`() {
 
     }
