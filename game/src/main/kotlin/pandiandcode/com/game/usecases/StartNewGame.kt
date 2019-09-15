@@ -1,12 +1,16 @@
 package pandiandcode.com.game.usecases
 
 import arrow.core.Try
+import pandiandcode.com.game.commands.ResetGameCommand
 import pandiandcode.com.game.model.Color
-import pandiandcode.com.game.repositories.GameRepository
+import pandiandcode.com.game.repositories.ColorSequenceRepository
 
-class StartNewGame(private val gameRepository: GameRepository) {
+class StartNewGame(
+        private val resetGameCommand: ResetGameCommand,
+        private val colorSequenceRepository: ColorSequenceRepository
+) {
     operator fun invoke(): Try<Color> {
-        gameRepository.resetGame()
-        return gameRepository.generateColor()
+        resetGameCommand()
+        return colorSequenceRepository.createColor()
     }
 }

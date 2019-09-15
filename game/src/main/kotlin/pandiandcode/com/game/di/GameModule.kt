@@ -1,21 +1,29 @@
 package pandiandcode.com.game.di
 
 
+import kotlinx.coroutines.FlowPreview
 import org.koin.dsl.module
-import pandiandcode.com.game.datasources.GameDataSource
+import pandiandcode.com.game.datasources.PositionDataSource
 import pandiandcode.com.game.GamePresenter
-import pandiandcode.com.game.repositories.GameRepository
+import pandiandcode.com.game.commands.ResetGameCommand
+import pandiandcode.com.game.datasources.ColorSequenceDataSource
+import pandiandcode.com.game.repositories.PositionRepository
 import pandiandcode.com.game.providers.ColorProvider
 import pandiandcode.com.game.providers.NumberProvider
+import pandiandcode.com.game.repositories.ColorSequenceRepository
 import pandiandcode.com.game.usecases.StartNewGame
 import pandiandcode.com.game.usecases.VerifyColor
 
+@FlowPreview
 val gameModule = module {
     factory { GamePresenter(get(), get()) }
-    factory { StartNewGame(get()) }
-    factory { VerifyColor(get()) }
-    single { GameRepository(get(), get()) }
-    single { GameDataSource() }
+    factory { StartNewGame(get(), get()) }
+    factory { VerifyColor(get(), get()) }
+    factory { ResetGameCommand(get(), get()) }
+    single { PositionRepository(get()) }
+    single { ColorSequenceRepository(get(), get()) }
+    single { PositionDataSource() }
+    single { ColorSequenceDataSource() }
     single { ColorProvider(get()) }
     single { NumberProvider() }
 }

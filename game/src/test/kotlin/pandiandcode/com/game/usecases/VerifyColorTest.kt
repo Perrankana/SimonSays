@@ -1,12 +1,14 @@
 package pandiandcode.com.game.usecases
 
 import com.nhaarman.mockitokotlin2.mock
-import pandiandcode.com.game.repositories.GameRepository
+import pandiandcode.com.game.repositories.ColorSequenceRepository
+import pandiandcode.com.game.repositories.PositionRepository
 
 class VerifyColorTest {
 
-    private val repository: GameRepository = mock()
-    private val verifyColor: VerifyColor = VerifyColor(repository)
+    private val colorSequenceRepository: ColorSequenceRepository = mock()
+    private val positionRepository: PositionRepository = mock()
+    private val verifyColor: VerifyColor = VerifyColor(colorSequenceRepository, positionRepository)
 
     fun `should return invalid when color is not correct`() {
 
