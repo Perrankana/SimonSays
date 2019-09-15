@@ -1,15 +1,9 @@
 package pandiandcode.com.game
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import pandiandcode.com.game.coroutines.BG_CONTEXT
 import pandiandcode.com.game.coroutines.DELAY
 import pandiandcode.com.game.model.Color
@@ -19,7 +13,8 @@ import pandiandcode.com.game.usecases.VerifyColor
 
 @FlowPreview
 class GamePresenter(
-    private val startNewGame: StartNewGame, private val verifyColor: VerifyColor
+        private val startNewGame: StartNewGame,
+        private val verifyColor: VerifyColor
 ) : CoroutineScope by MainScope() {
     private var view: View? = null
 
@@ -41,9 +36,9 @@ class GamePresenter(
             }, { firstColor ->
                 view?.hideStartButton()
                 listOf(firstColor).asFlowWithDelay(DELAY)
-                    .collect { color ->
-                        renderColor(color)
-                    }
+                        .collect { color ->
+                            renderColor(color)
+                        }
             })
         }
     }
@@ -72,12 +67,13 @@ class GamePresenter(
         view?.renderColor(color)
     }
 
-    private fun <T> Iterable<T>.asFlowWithDelay(delayTime: Long): Flow<T> = flow {
-        forEach { value ->
-            delay(delayTime)
-            emit(value)
-        }
-    }
+    private fun <T> Iterable<T>.asFlowWithDelay(delayTime: Long): Flow<T> =
+            flow {
+                forEach { value ->
+                    delay(delayTime)
+                    emit(value)
+                }
+            }
 
     interface View {
         fun hideStartButton()
