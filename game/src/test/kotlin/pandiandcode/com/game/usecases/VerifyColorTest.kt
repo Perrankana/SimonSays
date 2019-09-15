@@ -1,8 +1,8 @@
 package pandiandcode.com.game.usecases
 
 import com.nhaarman.mockitokotlin2.mock
-import pandiandcode.com.game.repositories.ColorSequenceRepository
-import pandiandcode.com.game.repositories.PositionRepository
+import pandiandcode.com.game.ColorSequenceRepository
+import pandiandcode.com.game.PositionRepository
 
 class VerifyColorTest {
 

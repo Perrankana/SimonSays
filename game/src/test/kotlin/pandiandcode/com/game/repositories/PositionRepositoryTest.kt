@@ -5,12 +5,13 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import pandiandcode.com.game.PositionRepository
 import pandiandcode.com.game.datasources.PositionDataSource
 
 class PositionRepositoryTest {
 
     private val dataSource: PositionDataSource = mock()
-    private val positionRepository: PositionRepository = PositionRepository(dataSource)
+    private val positionRepository: PositionRepository = PositionRepositoryImpl(dataSource)
 
 
     @Test

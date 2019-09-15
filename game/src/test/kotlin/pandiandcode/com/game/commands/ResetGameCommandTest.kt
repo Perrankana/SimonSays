@@ -4,8 +4,8 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before
 import org.junit.Test
-import pandiandcode.com.game.repositories.ColorSequenceRepository
-import pandiandcode.com.game.repositories.PositionRepository
+import pandiandcode.com.game.ColorSequenceRepository
+import pandiandcode.com.game.PositionRepository
 
 class ResetGameCommandTest() {
     private lateinit var colorSequenceRepository: ColorSequenceRepository

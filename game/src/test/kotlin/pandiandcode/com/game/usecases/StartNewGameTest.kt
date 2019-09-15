@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
 import pandiandcode.com.game.commands.ResetGameCommand
-import pandiandcode.com.game.repositories.ColorSequenceRepository
+import pandiandcode.com.game.ColorSequenceRepository
 
 class StartNewGameTest {
 

@@ -1,7 +1,7 @@
 package pandiandcode.com.game.commands
 
-import pandiandcode.com.game.repositories.ColorSequenceRepository
-import pandiandcode.com.game.repositories.PositionRepository
+import pandiandcode.com.game.ColorSequenceRepository
+import pandiandcode.com.game.PositionRepository
 
 class ResetGameCommand(
         private val colorSequenceRepository: ColorSequenceRepository,

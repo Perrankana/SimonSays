@@ -3,8 +3,8 @@ package pandiandcode.com.game.usecases
 import arrow.data.Invalid
 import arrow.data.Validated
 import pandiandcode.com.game.model.Color
-import pandiandcode.com.game.repositories.ColorSequenceRepository
-import pandiandcode.com.game.repositories.PositionRepository
+import pandiandcode.com.game.ColorSequenceRepository
+import pandiandcode.com.game.PositionRepository
 
 class VerifyColor(
         private val colorSequenceRepository: ColorSequenceRepository,

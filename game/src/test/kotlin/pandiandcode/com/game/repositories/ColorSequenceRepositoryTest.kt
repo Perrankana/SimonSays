@@ -5,6 +5,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Test
+import pandiandcode.com.game.ColorSequenceRepository
 import pandiandcode.com.game.datasources.ColorSequenceDataSource
 import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.providers.ColorProvider
@@ -12,7 +13,7 @@ import pandiandcode.com.game.providers.ColorProvider
 class ColorSequenceRepositoryTest {
     private val colorProvider: ColorProvider = mock()
     private val dataSource: ColorSequenceDataSource = mock()
-    private val repository: ColorSequenceRepository = ColorSequenceRepository(colorProvider, dataSource)
+    private val repository: ColorSequenceRepository = ColorSequenceRepositoryImpl(colorProvider, dataSource)
 
     @Test
     fun `should get color from Color Provider when a color is requested`() {
