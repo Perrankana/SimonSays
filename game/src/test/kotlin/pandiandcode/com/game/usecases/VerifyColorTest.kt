@@ -26,11 +26,11 @@ class VerifyColorTest {
 
     }
 
-    fun `should increment game sequence when is not end of sequence`() {
+    fun `should increment position when is not end of sequence`() {
 
     }
 
-    fun `should reset game sequence when it is end of sequence`() {
+    fun `should reset position when it is end of sequence`() {
 
     }
 }
