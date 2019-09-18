@@ -1,7 +1,10 @@
 package pandiandcode.com.game
 
 import arrow.core.Try
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -49,9 +52,7 @@ class GamePresenterTest {
 
         presenter.onStartGame()
 
-        inOrder(view) {
-            verify(view).renderColor(eq(COLOR))
-        }
+        verify(view).renderColor(eq(COLOR))
     }
 
     @Test
