@@ -64,14 +64,6 @@ class GamePresenterTest {
         verify(view).hideStartButton()
     }
 
-    fun `should render game over if green color is not correct`() {
-
-    }
-
-    fun `should render list of colors if green color is correct`() {
-
-    }
-
     private companion object {
         val COLOR = Color.Red
     }
