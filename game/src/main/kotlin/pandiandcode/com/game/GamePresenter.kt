@@ -1,9 +1,15 @@
 package pandiandcode.com.game
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pandiandcode.com.game.coroutines.BG_CONTEXT
 import pandiandcode.com.game.coroutines.DELAY
 import pandiandcode.com.game.model.Color
@@ -60,6 +66,18 @@ class GamePresenter(
     }
 
     private fun colorPressed(colorPressed: Color) {
+        launch {
+            withContext(BG_CONTEXT) {
+                verifyColor(colorPressed)
+            }.fold({
+                view?.renderGameOver()
+            }, {
+                it.asFlowWithDelay(DELAY)
+                                .collect {color ->
+                                    view?.renderColor(color)
+                                }
+            })
+        }
 
     }
 

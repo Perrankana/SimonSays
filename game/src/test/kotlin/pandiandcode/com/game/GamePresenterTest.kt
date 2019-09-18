@@ -1,7 +1,10 @@
 package pandiandcode.com.game
 
 import arrow.core.Try
+import arrow.data.Invalid
+import arrow.data.Valid
 import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.inOrder
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
@@ -64,12 +67,27 @@ class GamePresenterTest {
         verify(view).hideStartButton()
     }
 
+    @Test
     fun `should render game over if green color is not correct`() {
+        whenever(verifyColor(Color.Green))
+            .thenReturn(Invalid(Unit))
 
+        presenter.onGreenPressed()
+
+        verify(view).renderGameOver()
     }
 
+    @Test
     fun `should render list of colors if green color is correct`() {
+        whenever(verifyColor(Color.Green))
+            .thenReturn(Valid(listOf(Color.Green, Color.Red)))
 
+        presenter.onGreenPressed()
+
+        inOrder(view) {
+            verify(view).renderColor(Color.Green)
+            verify(view).renderColor(Color.Red)
+        }
     }
 
     private companion object {
