@@ -20,20 +20,16 @@ import pandiandcode.com.game.usecases.VerifyColor
 @ExperimentalCoroutinesApi
 class GamePresenterTest {
 
-    private lateinit var view: GamePresenter.View
-    private lateinit var startNewGame: StartNewGame
-    private lateinit var verifyColor: VerifyColor
-    private lateinit var presenter: GamePresenter
+    private val view: GamePresenter.View = mock()
+    private val startNewGame: StartNewGame = mock()
+    private val verifyColor: VerifyColor = mock()
+    private val presenter: GamePresenter = GamePresenter(startNewGame, verifyColor)
 
     @Before
     fun setup() {
         val mainTestDispatcher = TestCoroutineDispatcher()
         Dispatchers.setMain(mainTestDispatcher)
 
-        view = mock()
-        startNewGame = mock()
-        verifyColor = mock()
-        presenter = GamePresenter(startNewGame, verifyColor)
         presenter.onAttach(view)
     }
 
