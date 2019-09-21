@@ -8,6 +8,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import pandiandcode.com.game.ColorSequenceRepository
 import pandiandcode.com.game.PositionRepository
+import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.model.Color.Green
 import pandiandcode.com.game.model.Color.Blue
 import pandiandcode.com.game.model.Color.Red
