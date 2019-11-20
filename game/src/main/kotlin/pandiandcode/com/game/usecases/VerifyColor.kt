@@ -5,7 +5,7 @@ import arrow.data.Invalid
 import arrow.data.Valid
 import arrow.data.Validated
 
-import pandiandcode.com.game.GameRepository
+import pandiandcode.com.game.repositories.GameRepository
 import pandiandcode.com.game.model.Color
 
 class VerifyColor(private val gameRepository: GameRepository) {
