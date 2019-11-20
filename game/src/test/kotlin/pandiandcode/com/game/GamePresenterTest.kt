@@ -10,6 +10,7 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
 import org.junit.Before
@@ -18,8 +19,9 @@ import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.usecases.StartNewGame
 import pandiandcode.com.game.usecases.VerifyColor
 
+@FlowPreview
 @ExperimentalCoroutinesApi
-class GamePresenterShould {
+class GamePresenterTest {
 
     private lateinit var view: GamePresenter.View
     private lateinit var startNewGame: StartNewGame
@@ -39,7 +41,7 @@ class GamePresenterShould {
     }
 
     @Test
-    fun `execute start new game when on start game`() {
+    fun `should execute start new game when on start game`() {
         whenever(startNewGame()).thenReturn(Try.just(COLOR))
 
         presenter.onStartGame()
@@ -48,7 +50,7 @@ class GamePresenterShould {
     }
 
     @Test
-    fun `render first color when on start game`() {
+    fun `should render first color when on start game`() {
         whenever(startNewGame()).thenReturn(Try.just(COLOR))
 
         presenter.onStartGame()
@@ -59,7 +61,7 @@ class GamePresenterShould {
     }
 
     @Test
-    fun `hide start button when on start game`() {
+    fun `should hide start button when on start game`() {
         whenever(startNewGame()).thenReturn(Try.just(Color.Red))
 
         presenter.onStartGame()
@@ -68,7 +70,7 @@ class GamePresenterShould {
     }
 
     @Test
-    fun `render game over if green color is not correct`() {
+    fun `should render game over if green color is not correct`() {
         whenever(verifyColor(eq(Color.Green))).thenReturn(Invalid(Unit))
 
         presenter.onGreenPressed()
@@ -77,7 +79,7 @@ class GamePresenterShould {
     }
 
     @Test
-    fun `render list of colors if green color is correct`() {
+    fun `should render list of colors if green color is correct`() {
         whenever(verifyColor(eq(Color.Green))).thenReturn(Valid(listOf(Color.Green, Color.Red)))
 
         presenter.onGreenPressed()
