@@ -12,7 +12,7 @@ import pandiandcode.com.game.providers.ColorProvider
 class ColorSequenceRepositoryTest{
     private val colorProvider: ColorProvider = mock()
     private val dataSource: ColorSequenceDataSource = mock()
-    private val repository: ColorSequenceRepository = ColorSequenceRepository(colorProvider, dataSource)
+    private val repository: ColorSequenceRepository = ColorSequenceRepositoryImpl(colorProvider, dataSource)
 
     @Test
     fun `should get color from Color Provider when a color is requested`() {

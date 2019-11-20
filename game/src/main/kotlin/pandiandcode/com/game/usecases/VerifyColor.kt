@@ -4,10 +4,10 @@ import arrow.core.Try
 import arrow.data.Invalid
 import arrow.data.Valid
 import arrow.data.Validated
-
-import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.repositories.ColorSequenceRepository
 import pandiandcode.com.game.repositories.PositionRepository
+
+import pandiandcode.com.game.model.Color
 
 class VerifyColor(
         private val colorSequenceRepository: ColorSequenceRepository,
@@ -19,7 +19,7 @@ class VerifyColor(
                         .filter { color == it }
                         .fold({
                             Invalid(Unit)
-                        }, { colors ->
+                        }, {
                             isEndOfSequence()
                                     .filter { it }
                                     .flatMap {

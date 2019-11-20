@@ -1,9 +1,9 @@
 package pandiandcode.com.game.usecases
 
 import arrow.core.Try
+import pandiandcode.com.game.repositories.ColorSequenceRepository
 import pandiandcode.com.game.commands.ResetGameCommand
 import pandiandcode.com.game.model.Color
-import pandiandcode.com.game.repositories.ColorSequenceRepository
 
 class StartNewGame(
         private val resetGameCommand: ResetGameCommand,

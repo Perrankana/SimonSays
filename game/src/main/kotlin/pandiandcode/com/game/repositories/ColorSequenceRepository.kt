@@ -1,27 +1,14 @@
 package pandiandcode.com.game.repositories
 
 import arrow.core.Try
-import pandiandcode.com.game.datasources.ColorSequenceDataSource
 import pandiandcode.com.game.model.Color
-import pandiandcode.com.game.providers.ColorProvider
 
-class ColorSequenceRepository(
-        private val colorProvider: ColorProvider,
-        private val colorSequenceDataSource: ColorSequenceDataSource
-) {
-    fun createColor(): Try<Color> = Try.invoke {
-        colorProvider.generateColor().also {
-            colorSequenceDataSource.saveColor(it)
-        }
-    }
+interface ColorSequenceRepository {
+    fun createColor(): Try<Color>
 
-    fun getColorAt(position: Int): Try<Color> = Try.invoke {
-        colorSequenceDataSource.getColorAt(position)
-    }
+    fun getColorAt(position: Int):  Try<Color>
 
-    fun getColorsSequence(): List<Color> = colorSequenceDataSource.getColorSequence()
+    fun getColorsSequence(): List<Color>
 
-    fun reset() {
-        colorSequenceDataSource.reset()
-    }
+    fun reset()
 }

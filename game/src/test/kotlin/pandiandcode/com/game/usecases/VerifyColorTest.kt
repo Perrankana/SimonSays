@@ -8,9 +8,9 @@ import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.repositories.ColorSequenceRepository
 import pandiandcode.com.game.repositories.PositionRepository
+import pandiandcode.com.game.model.Color
 
 class VerifyColorTest {
     private val colorSequenceRepository: ColorSequenceRepository = mock()
