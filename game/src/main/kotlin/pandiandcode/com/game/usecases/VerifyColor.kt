@@ -22,23 +22,23 @@ class VerifyColor(private val gameRepository: GameRepository) {
                         addNewColorToSequence()
                     }
                     .fold({
-                        gameRepository.incrementGameSequencePosition()
+                        gameRepository.incrementSequencePosition()
                         Valid(emptyList())
                     }, {
-                        gameRepository.resetGameSequencePosition()
+                        gameRepository.resetSequencePosition()
                         Valid(it)
                     })
             })
 
     private fun addNewColorToSequence(): Try<List<Color>> =
         gameRepository.generateColor().map {
-            gameRepository.getAllColorsGame()
+            gameRepository.getColorsSequence()
         }
 
     private fun isEndOfSequence(): Try<Boolean> =
         Try.invoke {
-            val sequenceSize = gameRepository.getAllColorsGame().size
-            val sequencePosition = gameRepository.getCurrentGameSequencePosition()
+            val sequenceSize = gameRepository.getColorsSequence().size
+            val sequencePosition = gameRepository.getCurrentSequencePosition()
             sequenceSize - 1 == sequencePosition
         }
 }

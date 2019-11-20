@@ -17,19 +17,19 @@ class GameRepository(private val colorProvider: ColorProvider, private val gameD
         gameDataSource.getColorAt(position)
     }
 
-    fun getAllColorsGame(): List<Color> = gameDataSource.gameColors.toList()
+    fun getColorsSequence(): List<Color> = gameDataSource.getGameColors()
 
     fun resetGame() {
         gameDataSource.reset()
     }
 
-    fun getCurrentGameSequencePosition(): Int = gameDataSource.positionToValidate
+    fun getCurrentSequencePosition(): Int = gameDataSource.positionToValidate
 
-    fun incrementGameSequencePosition() {
+    fun incrementSequencePosition() {
         gameDataSource.positionToValidate++
     }
 
-    fun resetGameSequencePosition() {
+    fun resetSequencePosition() {
         gameDataSource.positionToValidate = 0
     }
 }
