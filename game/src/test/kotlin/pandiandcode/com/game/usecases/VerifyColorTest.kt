@@ -69,7 +69,7 @@ class VerifyColorTest {
     }
 
     @Test
-    fun `should increment game sequence when is not end of sequence`() {
+    fun `should increment position when is not end of sequence`() {
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
         whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Try.just(Color.Green))
         whenever(colorSequenceRepository.getColorsSequence()).thenReturn(listOf(Color.Green, Color.Red))
@@ -80,7 +80,7 @@ class VerifyColorTest {
     }
 
     @Test
-    fun `should reset game sequence when it is end of sequence`() {
+    fun `should reset position when it is end of sequence`() {
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
         whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Try.just(Color.Green))
         whenever(colorSequenceRepository.getColorsSequence()).thenReturn(

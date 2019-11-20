@@ -55,9 +55,7 @@ class GamePresenterTest {
 
         presenter.onStartGame()
 
-        inOrder(view) {
-            verify(view).renderColor(eq(COLOR))
-        }
+        verify(view).renderColor(eq(COLOR))
     }
 
     @Test
