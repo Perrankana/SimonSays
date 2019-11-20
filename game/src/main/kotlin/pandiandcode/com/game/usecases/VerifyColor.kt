@@ -5,39 +5,45 @@ import arrow.data.Invalid
 import arrow.data.Valid
 import arrow.data.Validated
 
-import pandiandcode.com.game.repositories.GameRepository
 import pandiandcode.com.game.model.Color
+import pandiandcode.com.game.repositories.ColorSequenceRepository
+import pandiandcode.com.game.repositories.PositionRepository
 
-class VerifyColor(private val gameRepository: GameRepository) {
+class VerifyColor(
+        private val colorSequenceRepository: ColorSequenceRepository,
+        private val positionRepository: PositionRepository
+) {
     operator fun invoke(color: Color): Validated<Unit, List<Color>> =
-        gameRepository.getColorToValidate()
-            .filter { color == it }
-            .fold({
-                Invalid(Unit)
-            }, { colors ->
-                isEndOfSequence()
-                    .filter { it }
-                    .flatMap {
-                        addNewColorToSequence()
-                    }
-                    .fold({
-                        gameRepository.incrementSequencePosition()
-                        Valid(emptyList())
-                    }, {
-                        gameRepository.resetSequencePosition()
-                        Valid(it)
-                    })
-            })
+            with(positionRepository.getCurrentSequencePosition()){
+                colorSequenceRepository.getColorAt(this)
+                        .filter { color == it }
+                        .fold({
+                            Invalid(Unit)
+                        }, { colors ->
+                            isEndOfSequence()
+                                    .filter { it }
+                                    .flatMap {
+                                        addNewColorToSequence()
+                                    }
+                                    .fold({
+                                        positionRepository.incrementSequencePosition()
+                                        Valid(emptyList())
+                                    }, {
+                                        positionRepository.resetSequencePosition()
+                                        Valid(it)
+                                    })
+                        })
+            }
 
     private fun addNewColorToSequence(): Try<List<Color>> =
-        gameRepository.generateColor().map {
-            gameRepository.getColorsSequence()
+        colorSequenceRepository.createColor().map {
+            colorSequenceRepository.getColorsSequence()
         }
 
     private fun isEndOfSequence(): Try<Boolean> =
         Try.invoke {
-            val sequenceSize = gameRepository.getColorsSequence().size
-            val sequencePosition = gameRepository.getCurrentSequencePosition()
+            val sequenceSize = colorSequenceRepository.getColorsSequence().size
+            val sequencePosition = positionRepository.getCurrentSequencePosition()
             sequenceSize - 1 == sequencePosition
         }
 }
