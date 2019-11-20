@@ -1,8 +1,8 @@
 package pandiandcode.com.game
 
+import arrow.core.Invalid
 import arrow.core.Try
-import arrow.data.Invalid
-import arrow.data.Valid
+import arrow.core.Valid
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.inOrder
 import com.nhaarman.mockitokotlin2.mock

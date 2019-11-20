@@ -1,7 +1,7 @@
 package pandiandcode.com.game.usecases
 
 import arrow.core.Try
-import arrow.data.getOrElse
+import arrow.core.getOrElse
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever

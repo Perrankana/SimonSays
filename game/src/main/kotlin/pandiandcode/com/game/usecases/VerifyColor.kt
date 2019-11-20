@@ -1,9 +1,9 @@
 package pandiandcode.com.game.usecases
 
+import arrow.core.Invalid
 import arrow.core.Try
-import arrow.data.Invalid
-import arrow.data.Valid
-import arrow.data.Validated
+import arrow.core.Valid
+import arrow.core.Validated
 import pandiandcode.com.game.repositories.ColorSequenceRepository
 import pandiandcode.com.game.repositories.PositionRepository
 
