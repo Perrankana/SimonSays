@@ -16,4 +16,11 @@ class StartNewGameTest {
 
         verify(gameRepository).generateColor()
     }
+
+    @Test
+    fun `should reset any started game when it is executed`(){
+        useCase()
+
+        verify(gameRepository).resetGame()
+    }
 }

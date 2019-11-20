@@ -13,7 +13,6 @@ class VerifyColor(private val gameRepository: GameRepository) {
         gameRepository.getColorToValidate()
             .filter { color == it }
             .fold({
-                gameRepository.resetGame()
                 Invalid(Unit)
             }, { colors ->
                 isEndOfSequence()

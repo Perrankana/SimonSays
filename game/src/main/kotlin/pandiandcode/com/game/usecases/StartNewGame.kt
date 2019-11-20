@@ -5,5 +5,8 @@ import pandiandcode.com.game.repositories.GameRepository
 import pandiandcode.com.game.model.Color
 
 class StartNewGame(private val gameRepository: GameRepository) {
-    operator fun invoke(): Try<Color> = gameRepository.generateColor()
+    operator fun invoke(): Try<Color> {
+        gameRepository.resetGame()
+        return gameRepository.generateColor()
+    }
 }

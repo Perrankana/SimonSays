@@ -54,15 +54,6 @@ class VerifyColorTest {
     }
 
     @Test
-    fun `should reset game when color is not correct`() {
-        whenever(repository.getColorToValidate()).thenReturn(Try.just(Color.Red))
-
-        verifyColor(Color.Green)
-
-        verify(repository).resetGame()
-    }
-
-    @Test
     fun `should return empty list when the color is correct and it is not the end of the sequence`() {
         whenever(repository.getColorToValidate()).thenReturn(Try.just(Color.Green))
         whenever(repository.generateColor()).thenReturn(Try.just(Color.Red))
