@@ -2,22 +2,14 @@ package pandiandcode.com.game.commands
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Before
 import org.junit.Test
 import pandiandcode.com.game.repositories.ColorSequenceRepository
 import pandiandcode.com.game.repositories.PositionRepository
 
 class ResetGameCommandTest {
-    private lateinit var colorSequenceRepository: ColorSequenceRepository
-    private lateinit var positionRepository: PositionRepository
-    private lateinit var resetGameCommand: ResetGameCommand
-
-    @Before
-    fun setup() {
-        colorSequenceRepository = mock()
-        positionRepository = mock()
-        resetGameCommand = ResetGameCommand(colorSequenceRepository, positionRepository)
-    }
+    private val colorSequenceRepository: ColorSequenceRepository = mock()
+    private val positionRepository: PositionRepository = mock()
+    private val resetGameCommand = ResetGameCommand(colorSequenceRepository, positionRepository)
 
     @Test
     fun `should reset color sequence when executed`() {

@@ -12,7 +12,6 @@ class PositionRepositoryTest {
     private val dataSource: PositionDataSource = mock()
     private val positionRepository: PositionRepository = PositionRepositoryImpl(dataSource)
 
-
     @Test
     fun `should get position to validate from data source`() {
         whenever(dataSource.positionToValidate).thenReturn(POSITION)
