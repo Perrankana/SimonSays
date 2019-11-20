@@ -1,8 +1,6 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
-kotlin { experimental { coroutines 'enable' } }
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
