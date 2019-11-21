@@ -1,9 +1,6 @@
 package pandiandcode.com.game.usecases
 
-import arrow.core.Invalid
-import arrow.core.Try
-import arrow.core.Valid
-import arrow.core.Validated
+import arrow.core.*
 import pandiandcode.com.game.repositories.ColorSequenceRepository
 import pandiandcode.com.game.repositories.PositionRepository
 
@@ -16,7 +13,7 @@ class VerifyColor(
     operator fun invoke(color: Color): Validated<Unit, List<Color>> =
             with(positionRepository.getCurrentSequencePosition()){
                 colorSequenceRepository.getColorAt(this)
-                        .filter { color == it }
+                        .filter {color == it }
                         .fold({
                             Invalid(Unit)
                         }, {
@@ -35,15 +32,15 @@ class VerifyColor(
                         })
             }
 
-    private fun addNewColorToSequence(): Try<List<Color>> =
+    private fun addNewColorToSequence(): Option<List<Color>> =
         colorSequenceRepository.createColor().map {
             colorSequenceRepository.getColorsSequence()
         }
 
-    private fun isEndOfSequence(): Try<Boolean> =
-        Try.invoke {
+
+    private fun isEndOfSequence(): Option<Boolean>  {
             val sequenceSize = colorSequenceRepository.getColorsSequence().size
             val sequencePosition = positionRepository.getCurrentSequencePosition()
-            sequenceSize - 1 == sequencePosition
+            return (sequenceSize - 1 == sequencePosition).toOption()
         }
 }

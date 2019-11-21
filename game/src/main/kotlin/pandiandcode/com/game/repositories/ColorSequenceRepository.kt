@@ -1,12 +1,12 @@
 package pandiandcode.com.game.repositories
 
-import arrow.core.Try
+import arrow.core.Option
 import pandiandcode.com.game.model.Color
 
 interface ColorSequenceRepository {
-    fun createColor(): Try<Color>
+    fun createColor(): Option<Color>
 
-    fun getColorAt(position: Int):  Try<Color>
+    fun getColorAt(position: Int): Option<Color>
 
     fun getColorsSequence(): List<Color>
 

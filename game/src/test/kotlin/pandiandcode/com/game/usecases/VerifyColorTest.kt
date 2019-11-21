@@ -1,5 +1,6 @@
 package pandiandcode.com.game.usecases
 
+import arrow.core.Option
 import arrow.core.Try
 import arrow.core.getOrElse
 import com.nhaarman.mockitokotlin2.mock
@@ -20,7 +21,7 @@ class VerifyColorTest {
     @Test
     fun `should return invalid when color is not correct`() {
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
-        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Try.just(Color.Red))
+        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Option.just(Color.Red))
 
         val result = verifyColor(Color.Green)
 
@@ -30,8 +31,8 @@ class VerifyColorTest {
     @Test
     fun `should return valid when color is correct`() {
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
-        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Try.just(Color.Green))
-        whenever(colorSequenceRepository.createColor()).thenReturn(Try.just(Color.Red))
+        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Option.just(Color.Green))
+        whenever(colorSequenceRepository.createColor()).thenReturn(Option.just(Color.Red))
         whenever(colorSequenceRepository.getColorsSequence()).thenReturn(listOf(Color.Green, Color.Red))
 
         val result = verifyColor(Color.Green)
@@ -42,13 +43,13 @@ class VerifyColorTest {
     @Test
     fun `should return list of colors when color is correct and it is end of sequence`() {
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
-        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Try.just(Color.Green))
+        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Option.just(Color.Green))
         whenever(colorSequenceRepository.getColorsSequence()).thenReturn(
             listOf(Color.Green),
             listOf(Color.Green, Color.Red)
         )
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
-        whenever(colorSequenceRepository.createColor()).thenReturn(Try.just(Color.Red))
+        whenever(colorSequenceRepository.createColor()).thenReturn(Option.just(Color.Red))
 
         val result = verifyColor(Color.Green)
 
@@ -59,7 +60,7 @@ class VerifyColorTest {
     @Test
     fun `should return empty list when the color is correct and it is not the end of the sequence`() {
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
-        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Try.just(Color.Green))
+        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Option.just(Color.Green))
         whenever(colorSequenceRepository.getColorsSequence()).thenReturn(listOf(Color.Green, Color.Red))
 
         val result = verifyColor(Color.Green)
@@ -71,7 +72,7 @@ class VerifyColorTest {
     @Test
     fun `should increment position when is not end of sequence`() {
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
-        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Try.just(Color.Green))
+        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Option.just(Color.Green))
         whenever(colorSequenceRepository.getColorsSequence()).thenReturn(listOf(Color.Green, Color.Red))
 
         verifyColor(Color.Green)
@@ -82,13 +83,13 @@ class VerifyColorTest {
     @Test
     fun `should reset position when it is end of sequence`() {
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
-        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Try.just(Color.Green))
+        whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Option.just(Color.Green))
         whenever(colorSequenceRepository.getColorsSequence()).thenReturn(
                 listOf(Color.Green),
                 listOf(Color.Green, Color.Red)
         )
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
-        whenever(colorSequenceRepository.createColor()).thenReturn(Try.just(Color.Red))
+        whenever(colorSequenceRepository.createColor()).thenReturn(Option.just(Color.Red))
 
         verifyColor(Color.Green)
 

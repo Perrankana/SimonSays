@@ -1,6 +1,7 @@
 package pandiandcode.com.game
 
 import arrow.core.Invalid
+import arrow.core.Option
 import arrow.core.Try
 import arrow.core.Valid
 import com.nhaarman.mockitokotlin2.eq
@@ -38,7 +39,7 @@ class GamePresenterTest {
 
     @Test
     fun `should execute start new game when on start game`() {
-        whenever(startNewGame()).thenReturn(Try.just(COLOR))
+        whenever(startNewGame()).thenReturn(Option.just(COLOR))
 
         presenter.onStartGame()
 
@@ -47,7 +48,7 @@ class GamePresenterTest {
 
     @Test
     fun `should render first color when on start game`() {
-        whenever(startNewGame()).thenReturn(Try.just(COLOR))
+        whenever(startNewGame()).thenReturn(Option.just(COLOR))
 
         presenter.onStartGame()
 
@@ -56,7 +57,7 @@ class GamePresenterTest {
 
     @Test
     fun `should hide start button when on start game`() {
-        whenever(startNewGame()).thenReturn(Try.just(Color.Red))
+        whenever(startNewGame()).thenReturn(Option.just(Color.Red))
 
         presenter.onStartGame()
 
