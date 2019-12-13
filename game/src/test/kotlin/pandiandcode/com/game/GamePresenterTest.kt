@@ -37,15 +37,6 @@ class GamePresenterTest {
     }
 
     @Test
-    fun `should execute start new game when on start game`() {
-        whenever(startNewGame()).thenReturn(Option.just(COLOR))
-
-        presenter.onStartGame()
-
-        verify(startNewGame)()
-    }
-
-    @Test
     fun `should render first color when on start game`() {
         whenever(startNewGame()).thenReturn(Option.just(COLOR))
 
@@ -61,27 +52,6 @@ class GamePresenterTest {
         presenter.onStartGame()
 
         verify(view).hideStartButton()
-    }
-
-    @Test
-    fun `should render game over if green color is not correct`() {
-        whenever(verifyColor(eq(Color.Green))).thenReturn(Invalid(Unit))
-
-        presenter.onGreenPressed()
-
-        verify(view).renderGameOver()
-    }
-
-    @Test
-    fun `should render list of colors if green color is correct`() {
-        whenever(verifyColor(eq(Color.Green))).thenReturn(Valid(listOf(Color.Green, Color.Red)))
-
-        presenter.onGreenPressed()
-
-        inOrder(view) {
-            verify(view).renderColor(eq(Color.Green))
-            verify(view).renderColor(eq(Color.Red))
-        }
     }
 
     private companion object {
