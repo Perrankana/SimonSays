@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeFragment() {
         supportFragmentManager.beginTransaction()
-                .add(R.id.content, GameFragment.newInstance())
-                .commit()
+            .add(R.id.content, GameFragment.newInstance())
+            .commit()
     }
 }

@@ -5,8 +5,8 @@ import pandiandcode.com.game.repositories.PositionRepository
 
 
 class ResetGameCommand(
-        private val colorSequenceRepository: ColorSequenceRepository,
-        private val positionRepository: PositionRepository
+    private val colorSequenceRepository: ColorSequenceRepository,
+    private val positionRepository: PositionRepository
 ) {
     operator fun invoke() {
         colorSequenceRepository.reset()

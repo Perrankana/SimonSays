@@ -8,9 +8,9 @@ import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.repositories.ColorSequenceRepository
 import pandiandcode.com.game.repositories.PositionRepository
-import pandiandcode.com.game.model.Color
 
 class VerifyColorTest {
     private val colorSequenceRepository: ColorSequenceRepository = mock()
@@ -84,8 +84,8 @@ class VerifyColorTest {
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
         whenever(colorSequenceRepository.getColorAt(0)).thenReturn(Option.just(Color.Green))
         whenever(colorSequenceRepository.getColorsSequence()).thenReturn(
-                listOf(Color.Green),
-                listOf(Color.Green, Color.Red)
+            listOf(Color.Green),
+            listOf(Color.Green, Color.Red)
         )
         whenever(positionRepository.getCurrentSequencePosition()).thenReturn(0)
         whenever(colorSequenceRepository.createColor()).thenReturn(Option.just(Color.Red))

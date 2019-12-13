@@ -3,8 +3,8 @@ package pandiandcode.com.game.repositories
 import pandiandcode.com.game.datasources.PositionDataSource
 
 class PositionRepositoryImpl(
-        private val positionDataSource: PositionDataSource
-): PositionRepository {
+    private val positionDataSource: PositionDataSource
+) : PositionRepository {
 
     override fun getCurrentSequencePosition(): Int = positionDataSource.positionToValidate
 

@@ -9,7 +9,7 @@ import pandiandcode.com.game.datasources.ColorSequenceDataSource
 import pandiandcode.com.game.model.Color
 import pandiandcode.com.game.providers.ColorProvider
 
-class ColorSequenceRepositoryTest{
+class ColorSequenceRepositoryTest {
     private val colorProvider: ColorProvider = mock()
     private val dataSource: ColorSequenceDataSource = mock()
     private val repository: ColorSequenceRepository = ColorSequenceRepositoryImpl(colorProvider, dataSource)
@@ -39,7 +39,7 @@ class ColorSequenceRepositoryTest{
         verify(dataSource).getColorAt(eq(POSITION))
     }
 
-    private companion object{
+    private companion object {
         val COLOR = Color.Green
         const val POSITION = 0
     }
